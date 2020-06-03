@@ -1,18 +1,37 @@
-package com.test.example.maru;
+package com.test.example.maru.ui.meeting_list;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.test.example.maru.DI.DI;
+import com.test.example.maru.Model.Meeting;
+import com.test.example.maru.R;
+import com.test.example.maru.databinding.ActivityMainBinding;
+import com.test.example.maru.databinding.ContentMainBinding;
+import com.test.example.maru.service.MeetingApiService;
+
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
+    private List<Meeting> mMeetingList;
+
+
+
+/*
+
+    @BindView(R.id.list_meeting)
+    private RecyclerView mRecyclerView;
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-        //TODO: Add metting
+                //TODO: Add metting
             }
         });
     }

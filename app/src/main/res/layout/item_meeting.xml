@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_holder"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <View
+        android:id="@+id/item_meeting_shape_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shape_item_meeting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_meeting_meetinginfo_tv"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toLeftOf="@+id/item_meeting_delete_button"
+        app:layout_constraintLeft_toRightOf="@id/item_meeting_shape_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Réunion A - 11h00 - Salle 3" />
+    <TextView
+        android:id="@+id/item_meeting_email_tv"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@+id/item_meeting_shape_view"
+        app:layout_constraintRight_toLeftOf="@+id/item_meeting_delete_button"
+        app:layout_constraintTop_toBottomOf="@+id/item_meeting_meetinginfo_tv"
+        tools:text="maxime@lamazone.com, alex@lamazone.com, amelie@lamazone.com" />
+
+    <ImageButton
+        android:id="@+id/item_meeting_delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete_black_24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
