@@ -1,3 +1,4 @@
+/*
 package com.test.example.maru.ui.meeting_list;
 
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,16 +50,18 @@ public class FirstFragment extends Fragment implements MeetingRecyclerViewAdapte
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.fragment_meeting_list, container, false);
+  */
+/*      //View view = inflater.inflate(R.layout.fragment_meeting_list, container, false);
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         //TODO check
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        return view;
+        return view;*//*
 
 
-    }
+//
+//    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -65,5 +70,7 @@ public class FirstFragment extends Fragment implements MeetingRecyclerViewAdapte
     @Override
     public void onItemHolderClick(int position) {
 
+
     }
 }
+*/
