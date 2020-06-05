@@ -1,5 +1,7 @@
 package com.test.example.maru.ui.meeting_list;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +9,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,16 +18,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.test.example.maru.DI.DI;
 import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
-import com.test.example.maru.databinding.ActivityMainBinding;
-import com.test.example.maru.databinding.ContentMainBinding;
 import com.test.example.maru.service.MeetingApiService;
-
 import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MeetingRecyclerViewAdapter.OnMeetingClickListener {
+    @BindView(R.id.activity_main_list_detail)
+    View mDetailView;
+    @BindView(R.id.activity_main_meeting_recyclerview)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.activity_main_toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.activity_main_add_fab)
+    FloatingActionButton mAddFab;
     private List<Meeting> mMeetingList;
-
+    private boolean isTablet = false;
+    private MeetingApiService mApiService;
 
 
 /*
@@ -37,16 +48,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Add metting
-            }
-        });
+        isTablet = getResources().getBoolean(R.bool.is_tablet);
+        mApiService = DI.getMeetingApiService();
+        mMeetingList = mApiService.getMeeting();
+        initViews();
     }
 
     @Override
@@ -69,5 +74,61 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //TODO SourceLockedOrientationActivity
+    @SuppressLint("SourceLockedOrientationActivity")
+    private void initViews() {
+        ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
+        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingList, this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        if (isTablet) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            getSupportActionBar().setTitle("Maréu"); // TODO titre non inscrit en mode tablette
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        FloatingActionButton fab = findViewById(R.id.activity_main_add_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Add metting
+            }
+        });
+    }
+
+    @Override
+    public void onItemHolderClick(int position) {
+
+        if (!isTablet) {
+            mDetailView.setVisibility(View.VISIBLE);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            mAddFab.hide();
+            mRecyclerView.setVisibility(View.GONE);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAddFab.show();
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    mDetailView.setVisibility(View.GONE);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    getSupportActionBar().setDisplayShowHomeEnabled(false);
+                }
+            });
+
+
+        }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+// Replace the contents of the container with the new fragment
+        ft.replace(R.id.activity_main_list_detail, DetailMeetingFragment.newInstance(position));
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+        ft.commit();
     }
 }
