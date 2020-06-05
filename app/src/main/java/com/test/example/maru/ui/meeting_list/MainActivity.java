@@ -19,9 +19,7 @@ import com.test.example.maru.DI.DI;
 import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
 import com.test.example.maru.service.MeetingApiService;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -53,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         isTablet = getResources().getBoolean(R.bool.is_tablet);
         mApiService = DI.getMeetingApiService();
         mMeetingList = mApiService.getMeeting();
-
-
         initViews();
     }
 
@@ -84,18 +80,17 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     @SuppressLint("SourceLockedOrientationActivity")
     private void initViews() {
         ButterKnife.bind(this);
+        setSupportActionBar(mToolbar);
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingList, this));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //TODO check
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         if (isTablet) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+            getSupportActionBar().setTitle("Maréu"); // TODO titre non inscrit en mode tablette
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        // detailView.setVisibility(View.VISIBLE);
         FloatingActionButton fab = findViewById(R.id.activity_main_add_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
 
         if (!isTablet) {
             mDetailView.setVisibility(View.VISIBLE);
-            setSupportActionBar(mToolbar);
+
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             mAddFab.hide();

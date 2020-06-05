@@ -36,7 +36,7 @@
             tools:itemCount="4"/>
 
         <View
-            android:layout_width="10dp"
+            android:layout_width="5dp"
             android:layout_height="match_parent"
             android:background="@android:color/secondary_text_light"/>
 

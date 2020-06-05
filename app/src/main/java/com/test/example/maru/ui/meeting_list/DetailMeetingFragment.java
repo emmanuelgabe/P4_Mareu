@@ -56,7 +56,7 @@ public class DetailMeetingFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         View view = inflater.inflate(R.layout.fragment_detail_meeting, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
         return view;
     }
