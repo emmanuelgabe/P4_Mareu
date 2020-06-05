@@ -19,7 +19,9 @@ import com.test.example.maru.DI.DI;
 import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
 import com.test.example.maru.service.MeetingApiService;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,10 +35,10 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     Toolbar mToolbar;
     @BindView(R.id.activity_main_add_fab)
     FloatingActionButton mAddFab;
+    FragmentTransaction ft;
     private List<Meeting> mMeetingList;
     private boolean isTablet = false;
     private MeetingApiService mApiService;
-
 
 /*
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         isTablet = getResources().getBoolean(R.bool.is_tablet);
         mApiService = DI.getMeetingApiService();
         mMeetingList = mApiService.getMeeting();
+        ft = getSupportFragmentManager().beginTransaction();
         initViews();
     }
 
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -95,17 +99,26 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Add metting
+                ft.replace(R.id.activity_main_list_detail, new AddMeetingFragment());
+                ft.commit();
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                mAddFab.hide();
+                mRecyclerView.setVisibility(View.GONE);
+                mToolbar.setNavigationOnClickListener(v -> {
+                    mAddFab.show();
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    mDetailView.setVisibility(View.GONE);
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    getSupportActionBar().setDisplayShowHomeEnabled(false);
+                });
             }
         });
     }
-
     @Override
     public void onItemHolderClick(int position) {
-
         if (!isTablet) {
             mDetailView.setVisibility(View.VISIBLE);
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             mAddFab.hide();
@@ -120,11 +133,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
                     getSupportActionBar().setDisplayShowHomeEnabled(false);
                 }
             });
-
-
         }
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 // Replace the contents of the container with the new fragment
         ft.replace(R.id.activity_main_list_detail, DetailMeetingFragment.newInstance(position));
 // or ft.add(R.id.your_placeholder, new FooFragment());

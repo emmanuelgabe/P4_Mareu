@@ -3,7 +3,6 @@ package com.test.example.maru.ui.meeting_list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,11 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
-import com.test.example.maru.databinding.ItemMeetingBinding;
-import com.test.example.maru.events.DeleteMeetingEvent;
-
-import org.greenrobot.eventbus.EventBus;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -47,7 +41,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
        holder.mEmails.setText(meeting.getEmails());
-      holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getTime() + " - " + meeting.getRoom());
+      holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getStartTime() + " - " + meeting.getRoom());
      //TODO   holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteMeetingEvent(meeting)));
     }
 

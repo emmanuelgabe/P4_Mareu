@@ -66,7 +66,7 @@ public class DetailMeetingFragment extends Fragment {
 
         MeetingApiService mApiService = DI.getMeetingApiService();
         Meeting mMeeting = mApiService.getMeeting().get(position);
-        mTimeTv.setText(mMeeting.getTime());
+        mTimeTv.setText(mMeeting.getStartTime());
         mRoomTv.setText(mMeeting.getRoom());
         mSubjectTv.setText(mMeeting.getSubject());
         mEmailsTv.setText(mMeeting.getEmails());

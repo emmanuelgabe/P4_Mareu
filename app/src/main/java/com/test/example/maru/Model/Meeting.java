@@ -2,18 +2,28 @@ package com.test.example.maru.Model;
 
 public class Meeting {
     private int id;
-    private String time;
+    private String startTime;
     private String room;
     private String subject;
     private String emails;
+    private String endTime;
 
 
-    public Meeting(int id, String time, String room, String subject, String emails) {
+    public Meeting(int id, String startTime, String room, String subject, String emails) {
         this.id = id;
-        this.time = time;
+        this.startTime = startTime;
         this.room = room;
+        this.endTime = endTime;
         this.subject = subject;
         this.emails = emails;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getId() {
@@ -24,12 +34,12 @@ public class Meeting {
         this.id = id;
     }
 
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getRoom() {
