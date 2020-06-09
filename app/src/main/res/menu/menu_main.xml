@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.test.example.maru.ui.meeting_list.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/clear_filter_btn"
         android:orderInCategory="100"
-        android:title="@string/action_filter"
         app:showAsAction="always"
-      />
+        android:title="Clear filter" />
+    <item
+        android:id="@+id/filterbtn"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        app:showAsAction="always"
+        android:title="filter" />
+
 </menu>

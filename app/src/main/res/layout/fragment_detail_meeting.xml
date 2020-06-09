@@ -5,12 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/fragment_detail_meeting_subject"
@@ -21,72 +20,71 @@
             android:layout_marginRight="16dp"
             android:ellipsize="end"
             android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="21sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Réunion d’information" />
 
         <View
-            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_subject"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/cardview_shadow_start_color" />
+            android:layout_marginTop="5dp"
+            android:background="@color/cardview_shadow_start_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_subject" />
 
         <TextView
-            android:drawableLeft="@drawable/ic_room_24dp"
-            android:drawablePadding="5dp"
             android:id="@+id/fragment_detail_meeting_room"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
+            android:drawableLeft="@drawable/ic_room_24dp"
+            android:drawablePadding="5dp"
             android:ellipsize="end"
             android:singleLine="true"
+            android:textColor="#C7000000"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_subject"
-            tools:text="Salle 3"
-            android:textColor="#C7000000"/>
+            tools:text="Salle 3" />
 
         <TextView
-            android:drawableLeft="@drawable/ic_access_time_24dp"
-            android:drawablePadding="5dp"
             android:id="@+id/fragment_detail_meeting_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="16dp"
+            android:drawableLeft="@drawable/ic_access_time_24dp"
+            android:drawablePadding="5dp"
             android:ellipsize="end"
             android:singleLine="true"
+            android:textColor="#C7000000"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_room"
-            tools:text="15h00"
-            android:textColor="#C7000000"
-           />
+            tools:text="15h00" />
 
         <TextView
-            android:drawableLeft="@drawable/ic_group_24dp"
-            android:drawablePadding="5dp"
             android:id="@+id/fragment_detail_meeting_emails"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="16dp"
-            android:textColor="#C7000000"
+            android:drawableLeft="@drawable/ic_group_24dp"
+            android:drawablePadding="5dp"
             android:ellipsize="end"
-            android:textSize="16sp"
             android:singleLine="false"
+            android:textColor="#C7000000"
+            android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_time"

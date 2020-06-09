@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailMeetingFragment extends Fragment {
+    public static final String KEY_MEETING_POSITION = "MEETING_POSITION";
     @BindView(R.id.fragment_detail_meeting_subject)
     TextView mSubjectTv;
     @BindView(R.id.fragment_detail_meeting_room)
@@ -36,7 +37,7 @@ public class DetailMeetingFragment extends Fragment {
     public static DetailMeetingFragment newInstance(int position) {
         DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
         Bundle args = new Bundle();
-        args.putInt("position", position);
+        args.putInt(KEY_MEETING_POSITION, position);
         detailMeetingFragment.setArguments(args);
 
         return detailMeetingFragment;
@@ -45,8 +46,7 @@ public class DetailMeetingFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        position = getArguments().getInt("position", 0);
+        position = getArguments().getInt(KEY_MEETING_POSITION, 1);
         super.onCreate(savedInstanceState);
     }
 
