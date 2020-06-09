@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_filter"
+    android:id="@+id/content_filter_view"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:background="@color/cardview_light_background"
@@ -11,8 +11,7 @@
 
 
     <Spinner
-        android:id="@+id/fragment_filter_room_spinner"
-
+        android:id="@+id/content_filter_room_spinner"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,13 +22,13 @@
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_add_meeting_start_date_til"
+        android:id="@+id/content_filter_start_date_til"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Réunion après le "
         android:windowSoftInputMode="stateHidden"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/fragment_filter_room_spinner">
+        app:layout_constraintLeft_toRightOf="@+id/content_filter_room_spinner">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -40,13 +39,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_add_meeting_end_date_til"
+        android:id="@+id/content_filter_end_date_til"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Réunion avant le "
         android:windowSoftInputMode="stateHidden"
-        app:layout_constraintLeft_toRightOf="@+id/fragment_add_meeting_start_date_til"
-        app:layout_constraintTop_toTopOf="@+id/fragment_add_meeting_start_date_til">
+        app:layout_constraintLeft_toRightOf="@+id/content_filter_start_date_til"
+        app:layout_constraintTop_toTopOf="@+id/content_filter_start_date_til">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
