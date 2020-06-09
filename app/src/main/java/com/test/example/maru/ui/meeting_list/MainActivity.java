@@ -111,13 +111,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             }
         });
         mToolbar.setNavigationOnClickListener(v -> {
-            mFilterMenuItem.setVisible(true);
-            mClearMenuItem.setVisible(true);
-            mAddFab.show();
-            mRecyclerView.setVisibility(View.VISIBLE);
-            mDetailView.setVisibility(View.INVISIBLE);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setDisplayShowHomeEnabled(false);
+          closeFragment();
         });
     }
 
@@ -143,11 +137,27 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.activity_main_list_detail, DetailMeetingFragment.newInstance(position)).commit();
     }
-
+    private void closeFragment(){
+        mFilterMenuItem.setVisible(true);
+        mClearMenuItem.setVisible(true);
+        mAddFab.show();
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mDetailView.setVisibility(View.INVISIBLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+    }
     private void closeFileter() {
         mFilter.animate().setDuration(1500).translationY(0);
         mRecyclerView.animate().setDuration(1500).translationY(0);
         if (isTablet) mDetailView.animate().setDuration(1500).translationY(0);
         mFilterIsOpen = false;
+    }
+    @Override
+    public void onBackPressed() {
+        if (mDetailView.isShown() && !isTablet) {
+             closeFragment();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
