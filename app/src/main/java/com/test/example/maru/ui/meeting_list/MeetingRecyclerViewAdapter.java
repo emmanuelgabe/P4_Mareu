@@ -42,7 +42,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         Meeting meeting = mMeetings.get(position);
         holder.mEmails.setText(meeting.getEmails());
         holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getStartTime() + " - " + meeting.getRoom());
-        //TODO   holder.mDeleteButton.setOnClickListener(v -> EventBus.getDefault().post(new DeleteMeetingEvent(meeting)));
+        holder.mDeleteButton.setOnClickListener(v -> {
+            mListener.onMeetingDelete(meeting);
+        });
     }
 
     @Override
@@ -51,6 +53,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     public interface OnMeetingClickListener {
+        void onMeetingDelete(Meeting meeting);
+
         void onMeetingItemHolderClick(int position);
     }
 

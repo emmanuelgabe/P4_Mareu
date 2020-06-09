@@ -122,6 +122,13 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     }
 
     @Override
+    public void onMeetingDelete(Meeting meeting) {
+        MeetingApiService mApiService = DI.getMeetingApiService();
+        mApiService.deleteMeeting(meeting);
+        initViews();
+    }
+
+    @Override
     public void onMeetingItemHolderClick(int position) {
         if (!isTablet) {
             mFilterMenuItem.setVisible(false);
