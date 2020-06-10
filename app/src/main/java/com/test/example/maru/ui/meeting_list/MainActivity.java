@@ -1,6 +1,8 @@
 package com.test.example.maru.ui.meeting_list;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +12,7 @@ import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,12 +74,12 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
                 closeFileter();
             } else {
                 if (isTablet) {
-                    mDetailView.animate().setDuration(1500).translationY(140);
-                    mFilter.animate().setDuration(1500).translationY(140);
-                    mRecyclerView.animate().setDuration(1500).translationY(140);
+                    mDetailView.animate().setDuration(1000).translationY(140);
+                    mFilter.animate().setDuration(1000).translationY(140);
+                    mRecyclerView.animate().setDuration(1000).translationY(140);
                 } else {
-                    mFilter.animate().setDuration(1500).translationY(200);
-                    mRecyclerView.animate().setDuration(1500).translationY(200);
+                    mFilter.animate().setDuration(1000).translationY(200);
+                    mRecyclerView.animate().setDuration(1000).translationY(200);
                 }
                 mFilterIsOpen = true;
             }
@@ -117,9 +120,20 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
 
     @Override
     public void onMeetingDelete(Meeting meeting) {
-        MeetingApiService mApiService = DI.getMeetingApiService();
-        mApiService.deleteMeeting(meeting);
-        initViews();
+        AlertDialog.Builder alertDialogBuilder =   new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Êtes-vous sûr(e) de vouloir supprimer cette réunion ? ");
+        alertDialogBuilder.setPositiveButton("Oui", (dialog, which) -> {
+            MeetingApiService mApiService = DI.getMeetingApiService();
+            mApiService.deleteMeeting(meeting);
+            initViews();
+        });
+        alertDialogBuilder.setNegativeButton("Non", (dialog, which) -> {
+            if (dialog != null) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = alertDialogBuilder.create();
+        dialog.show();
     }
 
     @Override
@@ -147,9 +161,9 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
     private void closeFileter() {
-        mFilter.animate().setDuration(1500).translationY(0);
-        mRecyclerView.animate().setDuration(1500).translationY(0);
-        if (isTablet) mDetailView.animate().setDuration(1500).translationY(0);
+        mFilter.animate().setDuration(1000).translationY(0);
+        mRecyclerView.animate().setDuration(1000).translationY(0);
+        if (isTablet) mDetailView.animate().setDuration(1000).translationY(0);
         mFilterIsOpen = false;
     }
     @Override
