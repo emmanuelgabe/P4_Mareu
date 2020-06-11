@@ -1,112 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/fragment_add_meeting_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nouvelle réunion"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_margin_left"
+        android:layout_marginTop="@dimen/activity_margin_top"
+        android:layout_marginRight="@dimen/activity_margin_right"
+        android:layout_marginBottom="@dimen/activity_margin_bottom"
+        android:orientation="vertical">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_add_meeting_subject_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sujet de la réunion"
+                android:maxLength="35" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        android:id="@+id/fragment_add_meeting_subject_tv"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Sujet"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_title">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:id="@+id/activity_add_meeting_room_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="35" />
+            android:layout_marginTop="4dp"
+            android:background="@drawable/shape_spinner"
+            android:gravity="center_vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/activity_add_meeting_salle_de_reunion_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:drawableLeft="@drawable/ic_room_24dp"
+                android:text="Lieu de réunion :" />
 
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/fragment_add_meeting_room_spinner"
+                style="@style/Widget.AppCompat.Spinner.DropDown.ActionBar"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:entries="@array/room_array"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/fragment_add_meeting_room_spinner"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:entries="@array/room_array"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_subject_tv" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/content_filter_start_date_til"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:hint="jours de la réunion"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_room_spinner">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:id="@+id/activity_add_meeting_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="35" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_add_meeting_date_meeting_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_date_range_24"
+                    android:hint="Date de la réunion"
+                    android:maxLength="35" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_add_meeting_start_meeting_hour_til"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:hint="heure de début"
-        app:layout_constraintLeft_toRightOf="@id/content_filter_start_date_til"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_room_spinner">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_add_meeting_hour_meeting_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_access_time_24dp"
+                    android:hint="Heure de la réunion"
+                    android:maxLength="35" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_add_meeting_start_meeting_date_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="35" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fragment_add_meeting_start_meeting_date_til"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="durée de la réunion"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content_filter_start_date_til">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_baseline_hourglass_empty_24"
+                android:hint="Durée de la réunion"
+                android:maxLength="35" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_add_meeting_email_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="35" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_group_24dp"
+                android:hint="Emails des participants" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/fragment_add_meeting_email_et"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        android:ems="10"
-        android:hint="emails des participants"
-        android:inputType="textEmailAddress"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_start_meeting_date_til" />
+            <Button
+                android:id="@+id/activity_add_cancel_add_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="ANNULER" />
 
-    <Button
-        android:id="@+id/fragment_add_meeting_add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ajouter"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_email_et" />
+            <Button
+                android:id="@+id/activity_add_meeting_validate_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="AJOUTER" />
+        </LinearLayout>
+    </LinearLayout>
 
-
-    <Button
-        android:id="@+id/fragment_add_meeting_cancel_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Annuler"
-        app:layout_constraintLeft_toRightOf="@+id/fragment_add_meeting_add_btn"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_add_meeting_email_et" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

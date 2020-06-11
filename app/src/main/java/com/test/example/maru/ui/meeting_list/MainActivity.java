@@ -31,7 +31,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MeetingRecyclerViewAdapter.OnMeetingClickListener {
     @BindView(R.id.activity_main_list_detail) FrameLayout mDetailView;
     @BindView(R.id.activity_main_meeting_recyclerview) RecyclerView mRecyclerView;
-    @BindView(R.id.activity_main_toolbar) Toolbar mToolbar;
     @BindView(R.id.activity_main_add_fab) FloatingActionButton mAddFab;
     @BindView(R.id.content_filter_view) View mFilter;
     MenuItem mFilterMenuItem;
@@ -86,36 +85,22 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         if (isTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        setSupportActionBar(mToolbar);
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetingList, this));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         mAddFab.setOnClickListener(view -> {
-            Intent startAddMeetingActivity = new Intent(this,AddMeetingActivity.class);
+            Intent startAddMeetingActivity = new Intent(this, AddMeetingActivity.class);
             startActivity(startAddMeetingActivity);
             closeFilter();
-    });
-/*
-            FragmentTransaction mFragmentTransation = getSupportFragmentManager().beginTransaction();
-            mFragmentTransation.replace(R.id.activity_main_list_detail, new AddMeetingFragment()).commit();
-            mDetailView.setVisibility(View.VISIBLE);
-            mAddFab.hide();
-            if (!isTablet) {
-                closeFilter();
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setDisplayShowHomeEnabled(true);
-                mRecyclerView.setVisibility(View.INVISIBLE);
-                mFilterMenuItem.setVisible(false);
-                mClearMenuItem.setVisible(false);
-            }
-        });
-        */
-        mToolbar.setNavigationOnClickListener(v -> {
-            closeFragment();
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        closeFragment();
+        return false;
+    }
     @Override
     public void onMeetingDelete(Meeting meeting) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -123,8 +108,10 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         alertDialogBuilder.setPositiveButton("Oui", (dialog, which) -> {
             MeetingApiService mApiService = DI.getMeetingApiService();
             mApiService.deleteMeeting(meeting);
-          if(isTablet){  FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.remove(getSupportFragmentManager().findFragmentById(R.id.activity_main_list_detail)).commit();}
+            if (isTablet) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.remove(getSupportFragmentManager().findFragmentById(R.id.activity_main_list_detail)).commit();
+            }
             initViews();
         });
         alertDialogBuilder.setNegativeButton("Non", (dialog, which) -> {
@@ -146,11 +133,13 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             mRecyclerView.setVisibility(View.INVISIBLE);
             closeFilter();
         } else mAddFab.show();
+            getSupportActionBar().setTitle("Détail de la réunion");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.activity_main_list_detail, DetailMeetingFragment.newInstance(position)).commit();
     }
 
     private void closeFragment() {
+        getSupportActionBar().setTitle("Maréu");
         mFilterMenuItem.setVisible(true);
         mClearMenuItem.setVisible(true);
         mAddFab.show();
