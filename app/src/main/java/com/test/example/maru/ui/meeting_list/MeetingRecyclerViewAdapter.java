@@ -61,14 +61,10 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-        @BindView(R.id.item_holder)
-        public View itemHolder;
-        @BindView(R.id.item_meeting_delete_button)
-        public ImageButton mDeleteButton;
-        @BindView(R.id.item_meeting_email_tv)
-        public TextView mEmails;
-        @BindView(R.id.item_meeting_meetinginfo_tv)
-        TextView mMeetingInfo;
+        @BindView(R.id.item_holder) public View itemHolder;
+        @BindView(R.id.item_meeting_delete_button) public ImageButton mDeleteButton;
+        @BindView(R.id.item_meeting_email_tv) public TextView mEmails;
+        @BindView(R.id.item_meeting_meetinginfo_tv) TextView mMeetingInfo;
 
         public ViewHolder(View view) {
             super(view);

@@ -20,14 +20,10 @@ import butterknife.ButterKnife;
 
 public class DetailMeetingFragment extends Fragment {
     public static final String KEY_MEETING_POSITION = "MEETING_POSITION";
-    @BindView(R.id.fragment_detail_meeting_subject)
-    TextView mSubjectTv;
-    @BindView(R.id.fragment_detail_meeting_room)
-    TextView mRoomTv;
-    @BindView(R.id.fragment_detail_meeting_emails)
-    TextView mEmailsTv;
-    @BindView(R.id.fragment_detail_meeting_time)
-    TextView mTimeTv;
+    @BindView(R.id.fragment_detail_meeting_subject) TextView mSubjectTv;
+    @BindView(R.id.fragment_detail_meeting_room) TextView mRoomTv;
+    @BindView(R.id.fragment_detail_meeting_emails) TextView mEmailsTv;
+    @BindView(R.id.fragment_detail_meeting_time) TextView mTimeTv;
     private String time;
     private String room;
     private String subject;
