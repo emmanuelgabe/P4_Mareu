@@ -20,10 +20,12 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/activity_add_meeting_subject_tie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Sujet de la réunion"
-                android:maxLength="35" />
+                android:maxLength="35"
+                android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -58,24 +60,27 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/activity_add_meeting_date_meeting_til"
+                android:id="@+id/activity_add_meeting_date_til"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+           >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_baseline_date_range_24"
                     android:hint="Date de la réunion"
-                    android:maxLength="35" />
+                    android:maxLength="35"
+                    android:focusable="false"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/activity_add_meeting_hour_meeting_til"
+                android:id="@+id/activity_add_meeting_hour_til"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -86,12 +91,13 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_access_time_24dp"
                     android:hint="Heure de la réunion"
-                    android:maxLength="35" />
+                    android:maxLength="35"
+                    android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_add_meeting_start_meeting_date_til"
+            android:id="@+id/fragment_add_meeting_duration_til"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -101,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_baseline_hourglass_empty_24"
                 android:hint="Durée de la réunion"
-                android:maxLength="35" />
+                android:maxLength="35"
+                android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -114,7 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_group_24dp"
-                android:hint="Emails des participants" />
+                android:hint="Emails des participants"
+                android:focusable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -124,7 +132,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/activity_add_cancel_add_btn"
+                android:id="@+id/activity_add_meeting_cancel_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"

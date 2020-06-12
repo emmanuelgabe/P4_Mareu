@@ -24,5 +24,5 @@ public interface MeetingApiService {
      * Create a Meeting
      * @param Meeting
      */
-    void createNeighbour(Meeting meeting);
+    void createMeeting(Meeting meeting);
 }
