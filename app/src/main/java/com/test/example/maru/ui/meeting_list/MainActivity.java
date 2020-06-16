@@ -10,16 +10,18 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.test.example.maru.DI.DI;
 import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
+import com.test.example.maru.Utils.DatePickerFragment;
 import com.test.example.maru.service.MeetingApiService;
 
 import java.util.List;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     @BindView(R.id.activity_main_meeting_recyclerview) RecyclerView mRecyclerView;
     @BindView(R.id.activity_main_add_fab) FloatingActionButton mAddFab;
     @BindView(R.id.content_filter_view) View mFilter;
+    @BindView(R.id.content_filter_end_date_til) TextInputLayout mStartDate;
+    @BindView(R.id.content_filter_meeting_date_til) TextInputLayout mEndDate;
     MenuItem mFilterMenuItem;
     MenuItem mClearMenuItem;
     Boolean mFilterIsOpen = false;
@@ -70,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
                     mFilter.animate().setDuration(1000).translationY(140);
                     mRecyclerView.animate().setDuration(1000).translationY(140);
                 } else {
-                    mFilter.animate().setDuration(1000).translationY(200);
-                    mRecyclerView.animate().setDuration(1000).translationY(200);
+                    mFilter.animate().setDuration(1000).translationY(260);
+                    mRecyclerView.animate().setDuration(1000).translationY(260);
                 }
                 mFilterIsOpen = true;
             }
@@ -94,6 +98,14 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             startActivity(startAddMeetingActivity);
             closeFilter();
         });
+        mStartDate.getEditText().setOnClickListener(v -> {
+            DatePickerFragment mDatePickerFragment = new DatePickerFragment();
+            mDatePickerFragment.show(getSupportFragmentManager(), "datePicker");
+    });
+        mEndDate.getEditText().setOnClickListener(v -> {
+            DatePickerFragment mDatePickerFragment = new DatePickerFragment();
+            mDatePickerFragment.show(getSupportFragmentManager(), "datePicker");
+        });
     }
 
     @Override
@@ -101,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         closeFragment();
         return false;
     }
+
     @Override
     public void onMeetingDelete(Meeting meeting) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -133,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             mRecyclerView.setVisibility(View.INVISIBLE);
             closeFilter();
         } else mAddFab.show();
-            getSupportActionBar().setTitle("Détail de la réunion");
+        getSupportActionBar().setTitle("Détail de la réunion");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.activity_main_list_detail, DetailMeetingFragment.newInstance(position)).commit();
     }

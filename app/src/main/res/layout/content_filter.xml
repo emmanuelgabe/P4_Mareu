@@ -1,56 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_filter_view"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="130dp"
     android:background="@color/cardview_light_background"
     android:elevation="4dp"
+    android:orientation="vertical"
     app:layout_constraintBottom_toTopOf="parent">
 
-
-    <Spinner
-        android:id="@+id/content_filter_room_spinner"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/activity_add_meeting_room_linearlayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:entries="@array/room_array"
-        app:layout_constraintLeft_toLeftOf="@+id/content_filter_view"
-        app:layout_constraintTop_toTopOf="@+id/content_filter_view"
-        tools:ignore="MissingConstraints" />
+        android:layout_margin="5dp"
+        android:background="@drawable/shape_spinner">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/activity_add_meeting_date_til"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:hint="Réunion après le "
-        android:windowSoftInputMode="stateHidden"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content_filter_room_spinner">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+        <TextView
+            android:gravity="center"
+            android:id="@+id/content_filter_salle_de_reunion_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="35"
-            android:windowSoftInputMode="stateHidden" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginLeft="8dp"
+            android:drawableLeft="@drawable/ic_room_24dp"
+            android:text="Lieu de réunion :" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/content_filter_end_date_til"
-        android:layout_width="200dp"
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/content_filter_room_spinner"
+            style="@style/Widget.AppCompat.Spinner.DropDown.ActionBar"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:entries="@array/room_array"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_filter_linearlayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Réunion avant le "
-        android:windowSoftInputMode="stateHidden"
-        app:layout_constraintLeft_toRightOf="@+id/activity_add_meeting_date_til"
-        app:layout_constraintTop_toTopOf="@+id/activity_add_meeting_date_til">
+        android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/content_filter_meeting_date_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLength="35"
-            android:windowSoftInputMode="stateHidden" />
-    </com.google.android.material.textfield.TextInputLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Réunion après le "
+                android:maxLength="35"
+                android:windowSoftInputMode="stateHidden" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/content_filter_end_date_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:hint="Réunion avant le "
+            android:windowSoftInputMode="stateHidden">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="35"
+                android:windowSoftInputMode="stateHidden" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</LinearLayout>
