@@ -6,4 +6,5 @@
     <dimen name="activity_margin_bottom">24dp</dimen>
     <dimen name="activity_margin_left">200dp</dimen>
     <dimen name="activity_margin_right">200dp</dimen>
+    <dimen name="filter_translationY">90dp</dimen>
 </resources>

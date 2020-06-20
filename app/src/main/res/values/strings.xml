@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Maréu</string>
+    <string name="heure_de_la_reunion">Heure de la réunion</string>
+    <string name="duree_de_la_reunion">Durée de la réunion</string>
+    <string name="emails_des_participants">Emails des participants</string>
+    <string name="ajouter">AJOUTER</string>
+    <string name="salle_de_reunion">Salle de réunion</string>
+    <string name="sujet_de_la_reunion">Sujet de la réunion</string>
+    <string name="date_de_la_reunion">Date de la réunion</string>
+    <string name="delete_meeting">Delete meeting</string>
+    <string name="reunion_apres_le">Réunion après le</string>
+    <string name="reunion_avant_le">Réunion avant le</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

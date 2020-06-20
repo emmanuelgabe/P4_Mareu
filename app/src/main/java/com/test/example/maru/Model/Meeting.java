@@ -2,14 +2,15 @@ package com.test.example.maru.Model;
 
 public class Meeting {
     private int id;
-    private String startTime;
+    private Long startTime;
+    private Long endTime;
     private String room;
     private String subject;
     private String emails;
-    private String endTime;
 
 
-    public Meeting(int id, String startTime, String room, String subject, String emails) {
+
+    public Meeting(int id, Long startTime,Long endTime, String room, String subject, String emails) {
         this.id = id;
         this.startTime = startTime;
         this.room = room;
@@ -18,11 +19,11 @@ public class Meeting {
         this.emails = emails;
     }
 
-    public String getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
 
@@ -34,11 +35,11 @@ public class Meeting {
         this.id = id;
     }
 
-    public String getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 

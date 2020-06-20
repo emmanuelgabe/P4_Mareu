@@ -1,17 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.test.example.maru.ui.meeting_list.MainActivity">
-    <item
-        android:id="@+id/clear_filter_item"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:title="Clear filter" />
+    tools:context="com.test.example.maru.ui.MainActivity">
     <item
         android:id="@+id/filter_item"
-        android:orderInCategory="100"
         android:icon="@drawable/ic_baseline_filter_list_24"
-        app:showAsAction="always"
-        android:title="filter" />
+        android:orderInCategory="100"
+        android:title="filter"
+        app:showAsAction="always" />
 
 </menu>

@@ -1,10 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
     <dimen name="activity_margin_top">16dp</dimen>
     <dimen name="activity_margin_bottom">16dp</dimen>
     <dimen name="activity_margin_left">16dp</dimen>
     <dimen name="activity_margin_right">16dp</dimen>
     <dimen name="fragment_padding">16dp</dimen>
-
-
+    <dimen name="filter_translationY">140dp</dimen>
 </resources>

@@ -4,72 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_filter_view"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="@color/cardview_light_background"
+    android:layout_height="90dp"
+    android:background="@android:color/white"
     android:elevation="4dp"
-    android:padding="16dp"
+    android:gravity="center"
     app:layout_constraintBottom_toTopOf="parent"
     tools:orientation="horizontal">
 
-
-    <LinearLayout
-        android:gravity="center"
-        android:id="@+id/activity_add_meeting_room_linearlayout"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/activity_add_meeting_til_room"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/shape_spinner">
+        app:startIconDrawable="@drawable/ic_room_24dp">
 
-        <TextView
-            android:gravity="center"
-            android:id="@+id/content_filter_salle_de_reunion_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@drawable/ic_room_24dp"
-            android:text="Lieu de réunion :" />
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/content_filter_room_spinner"
-            style="@style/Widget.AppCompat.Spinner.DropDown.ActionBar"
-            android:layout_width="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/content_filter_actv_room"
+            android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:entries="@array/room_array"
-            android:spinnerMode="dropdown" />
-    </LinearLayout>
+            android:completionThreshold="1"
+            android:hint="@string/salle_de_reunion" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_gravity="center"
-        android:id="@+id/content_filter_meeting_date_til"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/content_filter_til_meeting_after_date"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp">
 
-
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Réunion après le "
+            android:focusable="false"
+            android:hint="@string/reunion_apres_le"
             android:maxLength="35"
             android:windowSoftInputMode="stateHidden" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_gravity="center"
-        android:id="@+id/content_filter_end_date_til"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/content_filte_til_meeting_befor_date"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:hint="Réunion avant le "
+        android:hint="@string/reunion_avant_le"
         android:windowSoftInputMode="stateHidden">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:maxLength="35"
             android:windowSoftInputMode="stateHidden" />
     </com.google.android.material.textfield.TextInputLayout>

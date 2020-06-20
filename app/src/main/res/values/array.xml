@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="room_array">
+        <item>Salle A</item>
+        <item>Salle B</item>
+        <item>Salle C</item>
+        <item>Salle D</item>
+        <item>Salle E</item>
+        <item>Salle F</item>
+        <item>Salle G</item>
+        <item>Auditorium</item>
+        <item>Amphithéâtre</item>
+    </string-array>
+
+    <string-array name="email">
+        <item>Jean@lamzone.com</item>
+        <item>Pierre@lamzone.com</item>
+        <item>Michel@lamzone.com</item>
+        <item>André@lamzone.com</item>
+        <item>Philippe@lamzone.com</item>
+        <item>Jacques@lamzone.com</item>
+        <item>Marcel@lamzone.com</item>
+        <item>Daniel@lamzone.com</item>
+        <item>Roger@lamzone.com</item>
+        <item>Christian@lamzone.com</item>
+        <item>Bernard@lamzone.com</item>
+        <item>Robert@lamzone.com</item>
+        <item>Paul@lamzone.com</item>
+        <item>Claude@lamzone.com</item>
+        <item>Henri@lamzone.com</item>
+        <item>Georges@lamzone.com</item>
+        <item>Nicolas@lamzone.com</item>
+        <item>François@lamzone.com</item>
+        <item>Patrick@lamzone.com</item>
+        <item>Nicole@lamzone.com</item>
+        <item>Madeleine@lamzone.com</item>
+        <item>Martine@lamzone.com</item>
+        <item>Sylvie@lamzone.com</item>
+        <item>Anne@lamzone.com</item>
+        <item>Jacqueline@lamzone.com</item>
+        <item>Isabelle@lamzone.com</item>
+        <item>Nathalie@lamzone.com</item>
+        <item>Catherine@lamzone.com</item>
+        <item>Monique@lamzone.com</item>
+        <item>Françoise@lamzone.com</item>
+        <item>Jeanne@lamzone.com</item>
+        <item>Marie@lamzone.com</item>
+        <item>Suzanne@lamzone.com</item>
+        <item>Christine@lamzone.com</item>
+        <item>Hélène@lamzone.com</item>
+        <item>Marguerite@lamzone.com</item>
+        <item>Denise@lamzone.com</item>
+        <item>Louise@lamzone.com</item>
+        <item>Christiane@lamzone.com</item>
+        <item>Yvonne@lamzone.com</item>
+    </string-array>
+</resources>

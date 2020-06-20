@@ -22,7 +22,7 @@ public interface MeetingApiService {
 
     /**
      * Create a Meeting
-     * @param Meeting
+     * @param meeting
      */
     void createMeeting(Meeting meeting);
 }

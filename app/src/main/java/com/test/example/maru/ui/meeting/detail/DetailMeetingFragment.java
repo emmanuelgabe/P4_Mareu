@@ -1,4 +1,4 @@
-package com.test.example.maru.ui.meeting_list;
+package com.test.example.maru.ui.meeting.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,21 +13,19 @@ import androidx.fragment.app.Fragment;
 import com.test.example.maru.DI.DI;
 import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
+import com.test.example.maru.Utils.DateTimeUtils;
 import com.test.example.maru.service.MeetingApiService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.internal.Utils;
 
 public class DetailMeetingFragment extends Fragment {
     public static final String KEY_MEETING_POSITION = "MEETING_POSITION";
-    @BindView(R.id.fragment_detail_meeting_subject) TextView mSubjectTv;
-    @BindView(R.id.fragment_detail_meeting_room) TextView mRoomTv;
-    @BindView(R.id.fragment_detail_meeting_emails) TextView mEmailsTv;
-    @BindView(R.id.fragment_detail_meeting_time) TextView mTimeTv;
-    private String time;
-    private String room;
-    private String subject;
-    private String emails;
+    @BindView(R.id.fragment_detail_meeting__tv_subject) TextView mSubjectTv;
+    @BindView(R.id.fragment_detail_meeting_tv_room) TextView mRoomTv;
+    @BindView(R.id.fragment_detail_meeting_tv_emails) TextView mEmailsTv;
+    @BindView(R.id.fragment_detail_meeting_tv_time) TextView mTimeTv;
     private int position;
 
     public static DetailMeetingFragment newInstance(int position) {
@@ -35,7 +33,6 @@ public class DetailMeetingFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(KEY_MEETING_POSITION, position);
         detailMeetingFragment.setArguments(args);
-
         return detailMeetingFragment;
 
     }
@@ -53,7 +50,6 @@ public class DetailMeetingFragment extends Fragment {
     ) {
         View view = inflater.inflate(R.layout.fragment_detail_meeting, container, false);
         ButterKnife.bind(this, view);
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -62,7 +58,7 @@ public class DetailMeetingFragment extends Fragment {
 
         MeetingApiService mApiService = DI.getMeetingApiService();
         Meeting mMeeting = mApiService.getMeeting().get(position);
-        mTimeTv.setText(mMeeting.getStartTime());
+        mTimeTv.setText(DateTimeUtils.getStringTimeDateInformations(mMeeting.getStartTime(),mMeeting.getEndTime()));
         mRoomTv.setText(mMeeting.getRoom());
         mSubjectTv.setText(mMeeting.getSubject());
         mEmailsTv.setText(mMeeting.getEmails());
