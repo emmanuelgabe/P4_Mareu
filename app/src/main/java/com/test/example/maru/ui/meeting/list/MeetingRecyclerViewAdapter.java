@@ -3,8 +3,6 @@ package com.test.example.maru.ui.meeting.list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,14 +13,13 @@ import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
 import com.test.example.maru.Utils.DateTimeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> /*implements Filterable */{
+public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> /*implements Filterable */ {
     private List<Meeting> meetings;
     private OnMeetingClickListener listener;
 /*    private List<Meeting> meetingsFull;
@@ -57,7 +54,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public MeetingRecyclerViewAdapter(List<Meeting> meetings, OnMeetingClickListener listener) {
         this.meetings = meetings;
         this.listener = listener;
-     /*   meetingsFull = new ArrayList<>(meetings);*/
+        /*   meetingsFull = new ArrayList<>(meetings);*/
     }
 
     @NonNull
@@ -71,7 +68,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meeting meeting = meetings.get(position);
-        holder.mEmails.setText(meeting.getEmails());
+        holder.mEmails.setText(meeting.getEmails()
+                .replace(",", "\n")
+                .replace("[", "")
+                .replace("]", "")
+                .replace(" ", ""));
         holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getRoom());
         holder.mMeetingDate.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime()));
         holder.mDeleteButton.setOnClickListener(v -> listener.onMeetingDelete(meeting));

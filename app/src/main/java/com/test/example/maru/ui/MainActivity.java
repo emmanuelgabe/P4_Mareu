@@ -198,7 +198,6 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         super.onRestart();
     }
 
-
     @Override
     public void onMeetingDelete(Meeting meeting) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -206,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         alertDialogBuilder.setPositiveButton("Oui", (dialog, which) -> {
             MeetingApiService mApiService = DI.getMeetingApiService();
             mApiService.deleteMeeting(meeting);
+            mMeetingListFiltered.remove(meeting);
             if (isTablet) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.remove(getSupportFragmentManager().findFragmentById(R.id.activity_main_fl_detail)).commit();
@@ -228,11 +228,11 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             mAddFab.hide();
             mRecyclerView.setVisibility(View.INVISIBLE);
+            getSupportActionBar().setTitle("Détail de la réunion");
             closeFilter();
-        } else mAddFab.show();
-        getSupportActionBar().setTitle("Détail de la réunion");
+        } //else mAddFab.show();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.activity_main_fl_detail, DetailMeetingFragment.newInstance(position)).commit();
+        ft.replace(R.id.activity_main_fl_detail, DetailMeetingFragment.newInstance(mMeetingListFiltered.get(position))).commit();
     }
 
     private void closeFragment() {

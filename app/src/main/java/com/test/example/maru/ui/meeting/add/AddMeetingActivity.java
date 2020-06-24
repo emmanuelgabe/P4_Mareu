@@ -110,14 +110,13 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
                 meetingEndDate.setTime(meetingDate.getTime());
                 meetingEndDate.add(Calendar.HOUR, meetingDuration.get(Calendar.HOUR));
                 meetingEndDate.add(Calendar.MINUTE, meetingDuration.get(Calendar.MINUTE));
-                //TODO generate Id
                 Meeting mMeeting = new Meeting(
-                        321,
+                        System.currentTimeMillis(),
                         meetingDate.getTimeInMillis(),
                         meetingEndDate.getTimeInMillis(),
                         mRoomAutoCTV.getText().toString(),
                         mSubjectTil.getEditText().getText().toString(),
-                        mEmailAutoMACTV.getText().toString());
+                        sortEmailAlphabetically(mEmailAutoMACTV.getText().toString()));
                 MeetingApiService mApiService = DI.getMeetingApiService();
                 mApiService.createMeeting(mMeeting);
                 finish();
@@ -188,20 +187,27 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         //TODO check avaiable and sow alertdialog
         return true;
     }
+
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) { }
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
     @Override
     public void afterTextChanged(Editable s) {
-        if (!TextUtils.isEmpty(mSubjectTil.getEditText().getText())) {
-            mSubjectTil.setError(null);
-        }
-        if (!TextUtils.isEmpty(mRoomAutoCTV.getText())) {
-            mRoomTil.setError(null);
-        }
-        if (!TextUtils.isEmpty(mEmailAutoMACTV.getText())) {
-            mEmailTil.setError(null);
-        }
+        if (!TextUtils.isEmpty(mSubjectTil.getEditText().getText())) mSubjectTil.setError(null);
+        if (!TextUtils.isEmpty(mRoomAutoCTV.getText())) mRoomTil.setError(null);
+        if (!TextUtils.isEmpty(mEmailAutoMACTV.getText())) mEmailTil.setError(null);
+    }
+
+    private String sortEmailAlphabetically(String emails) {
+        String[] emailArray = emails
+                .substring(0, emails.length() - 2)
+                .split(",");
+        Arrays.sort(emailArray);
+        return Arrays.toString(emailArray);
     }
 }
