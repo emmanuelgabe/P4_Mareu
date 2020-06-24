@@ -10,6 +10,7 @@
     <string name="delete_meeting">Delete meeting</string>
     <string name="reunion_apres_le">Réunion après le</string>
     <string name="reunion_avant_le">Réunion avant le</string>
+    <string name="ok">OK</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

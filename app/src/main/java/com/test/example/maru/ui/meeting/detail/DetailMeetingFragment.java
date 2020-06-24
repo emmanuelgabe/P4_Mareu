@@ -56,8 +56,6 @@ public class DetailMeetingFragment extends Fragment {
         mSubjectTv.setText(meeting.getSubject());
         mEmailsTv.setText(meeting.getEmails()
                 .replace(",", "\n")
-                .replace("[", "")
-                .replace("]", "")
                 .replace(" ", ""));
     }
 }

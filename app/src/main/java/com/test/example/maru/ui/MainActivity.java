@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         ButterKnife.bind(this);
         isTablet = getResources().getBoolean(R.bool.is_tablet);
         mApiService = DI.getMeetingApiService();
-        mMeetingList = mApiService.getMeeting();
+        mMeetingList = mApiService.getMeetings();
         mMeetingListFiltered = new ArrayList<>();
         mMeetingListFiltered.addAll(mMeetingList);
         filterMinDate = Long.MIN_VALUE;

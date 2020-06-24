@@ -11,7 +11,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
 
     @Override
-    public List<Meeting> getMeeting() {
+    public List<Meeting> getMeetings() {
         return meetings;
     }
 

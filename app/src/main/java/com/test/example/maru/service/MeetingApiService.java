@@ -12,7 +12,7 @@ public interface MeetingApiService {
      * Get all Meeting
      * @return {@link Meeting}
      */
-    List<Meeting> getMeeting();
+    List<Meeting> getMeetings();
 
     /**
      * Deletes a Meeting

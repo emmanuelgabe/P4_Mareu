@@ -13,6 +13,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,10 +27,13 @@ import com.test.example.maru.service.MeetingApiService;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.test.example.maru.Utils.DateTimeUtils.getStringTimeDateInformations;
 
 public class AddMeetingActivity extends AppCompatActivity implements TimePickerFragment.OnTimeSetListener, DatePickerFragment.OnDateSetListener, TextWatcher {
     public static final String DURATION_TIME_TAG = "DurationPicker";
@@ -47,7 +51,6 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
     @BindView(R.id.activity_add_meeting_mactv_email) MultiAutoCompleteTextView mEmailAutoMACTV;
 
     private Calendar meetingDate;
-    private Calendar meetingStartHour;
     private Calendar meetingDuration;
     private boolean isTablet;
 
@@ -104,8 +107,7 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         mEmailAutoMACTV.addTextChangedListener(this);
 
         mValidateBtn.setOnClickListener(v -> {
-            if (checkRequiredField() && meetingPlaceAvaiable()) {
-                // meetingDuration.add(Calendar.DATE,meetingDate.getTime());
+            if (checkRequiredField()) {
                 Calendar meetingEndDate = Calendar.getInstance();
                 meetingEndDate.setTime(meetingDate.getTime());
                 meetingEndDate.add(Calendar.HOUR, meetingDuration.get(Calendar.HOUR));
@@ -117,10 +119,12 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
                         mRoomAutoCTV.getText().toString(),
                         mSubjectTil.getEditText().getText().toString(),
                         sortEmailAlphabetically(mEmailAutoMACTV.getText().toString()));
-                MeetingApiService mApiService = DI.getMeetingApiService();
-                mApiService.createMeeting(mMeeting);
-                finish();
-                Toast.makeText(this, "réunion ajouté avec succès", Toast.LENGTH_LONG).show();
+                if (meetingPlaceAvaiable(mMeeting)) {
+                    MeetingApiService mApiService = DI.getMeetingApiService();
+                    mApiService.createMeeting(mMeeting);
+                    finish();
+                    Toast.makeText(this, "réunion ajouté avec succès", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -183,17 +187,34 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         return requiredFiledIsNotEmpty;
     }
 
-    private boolean meetingPlaceAvaiable() {
+    private boolean meetingPlaceAvaiable(Meeting newMeeting) {
+        MeetingApiService mApiService = DI.getMeetingApiService();
+        List<Meeting> meetingList = mApiService.getMeetings();
+        for (Meeting m : meetingList) {
+            if (newMeeting.getRoom().equals(m.getRoom())
+                    && (newMeeting.getStartTime() > m.getStartTime() && newMeeting.getStartTime() < m.getEndTime()
+                    || newMeeting.getEndTime() < m.getEndTime() && newMeeting.getEndTime() > m.getStartTime())) {
+                showDialogf(m);
+                return false;
+            }
+        }
         //TODO check avaiable and sow alertdialog
         return true;
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private void showDialogf(Meeting m) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Ce créneau est déjà pris");
+        alertDialog.setMessage("La réunion suivante est déjà présente dans " + m.getRoom() + " : " + m.getSubject() + " \n " + getStringTimeDateInformations(m.getStartTime(), m.getEndTime()));
+        alertDialog.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.cancel());
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
     }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
     @Override
@@ -208,6 +229,10 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
                 .substring(0, emails.length() - 2)
                 .split(",");
         Arrays.sort(emailArray);
-        return Arrays.toString(emailArray);
+
+        emails = Arrays.toString(emailArray);
+        emails = emails.replace("[", "")
+                .replace("]", "");
+        return emails;
     }
 }
