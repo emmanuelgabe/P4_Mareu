@@ -1,5 +1,8 @@
 package com.test.example.maru.ui.meeting.list;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,48 +16,22 @@ import com.test.example.maru.Model.Meeting;
 import com.test.example.maru.R;
 import com.test.example.maru.Utils.DateTimeUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> /*implements Filterable */ {
+public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
+    private int selectedPos = RecyclerView.NO_POSITION;
     private List<Meeting> meetings;
     private OnMeetingClickListener listener;
-/*    private List<Meeting> meetingsFull;
-    private Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Meeting> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(meetingsFull);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Meeting item : meetingsFull) {
-                    if (item.getRoom().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(item);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            meetings.clear();
-            meetings.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    };*/
+    private Context mContext;
 
     public MeetingRecyclerViewAdapter(List<Meeting> meetings, OnMeetingClickListener listener) {
         this.meetings = meetings;
         this.listener = listener;
-        /*   meetingsFull = new ArrayList<>(meetings);*/
     }
 
     @NonNull
@@ -76,6 +53,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getRoom());
         holder.mMeetingDate.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime()));
         holder.mDeleteButton.setOnClickListener(v -> listener.onMeetingDelete(meeting));
+        int colorposition = Arrays.asList(holder.mViewShape.getResources().getStringArray(R.array.room_array)).indexOf(meeting.getRoom());
+        String[] color = holder.mViewShape.getResources().getStringArray(R.array.room_color);
+        GradientDrawable backgroundGradient = (GradientDrawable) holder.mViewShape.getBackground();
+        backgroundGradient.setColor(Color.parseColor((color[colorposition])));
+        holder.itemView.setSelected(selectedPos == position);
     }
 
     @Override
@@ -83,10 +65,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         return meetings.size();
     }
 
-  /*  @Override
-    public Filter getFilter() {
-        return filter;
-    }*/
 
     public interface OnMeetingClickListener {
         void onMeetingDelete(Meeting meeting);
@@ -100,6 +78,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         @BindView(R.id.item_meeting_tv_email) public TextView mEmails;
         @BindView(R.id.item_meeting_tv_meeting_info) TextView mMeetingInfo;
         @BindView(R.id.item_meeting_tv_date) TextView mMeetingDate;
+        @BindView(R.id.item_meeting_view_shape) View mViewShape;
 
         public ViewHolder(View view) {
             super(view);
@@ -109,8 +88,10 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         @Override
         public void onClick(View view) {
+            notifyItemChanged(selectedPos);
+            selectedPos = getLayoutPosition();
+            notifyItemChanged(selectedPos);
             listener.onMeetingItemHolderClick(getAdapterPosition());
         }
     }
-
 }

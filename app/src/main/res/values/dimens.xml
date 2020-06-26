@@ -1,4 +1,5 @@
 <resources>
+
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="activity_margin_top">16dp</dimen>
@@ -7,4 +8,12 @@
     <dimen name="activity_margin_right">16dp</dimen>
     <dimen name="fragment_padding">16dp</dimen>
     <dimen name="filter_translationY">140dp</dimen>
+    <dimen name="activity_margin_start_end">@dimen/spacer4</dimen>
+    <dimen name="spacer1">4dp</dimen>
+    <dimen name="spacer1_2">6dp</dimen>
+    <dimen name="spacer2">8dp</dimen>
+    <dimen name="spacer3">12dp</dimen>
+    <dimen name="spacer4">16dp</dimen>
+    <dimen name="spacer50">200dp</dimen>
+
 </resources>

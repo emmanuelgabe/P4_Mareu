@@ -110,7 +110,7 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
             if (checkRequiredField()) {
                 Calendar meetingEndDate = Calendar.getInstance();
                 meetingEndDate.setTime(meetingDate.getTime());
-                meetingEndDate.add(Calendar.HOUR, meetingDuration.get(Calendar.HOUR));
+                meetingEndDate.add(Calendar.HOUR_OF_DAY, meetingDuration.get(Calendar.HOUR));
                 meetingEndDate.add(Calendar.MINUTE, meetingDuration.get(Calendar.MINUTE));
                 Meeting mMeeting = new Meeting(
                         System.currentTimeMillis(),
@@ -198,7 +198,6 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
                 return false;
             }
         }
-        //TODO check avaiable and sow alertdialog
         return true;
     }
 

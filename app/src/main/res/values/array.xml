@@ -54,4 +54,16 @@
         <item>Christiane@lamzone.com</item>
         <item>Yvonne@lamzone.com</item>
     </string-array>
+
+    <string-array name="room_color">
+        <item>#eb9d9d</item>
+        <item>#ebce9d</item>
+        <item>#e5eb9d</item>
+        <item>#beeb9d</item>
+        <item>#9deba2</item>
+        <item>#9debe1</item>
+        <item>#9dddeb</item>
+        <item>#9daaeb</item>
+        <item>#d29deb</item>
+    </string-array>
 </resources>

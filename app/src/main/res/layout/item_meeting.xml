@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_holder"
     android:layout_width="match_parent"
-    android:layout_height="75dp">
+    android:layout_height="75dp"
+    android:background="@drawable/selector_recyclerview"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <View
         android:id="@+id/item_meeting_view_shape"

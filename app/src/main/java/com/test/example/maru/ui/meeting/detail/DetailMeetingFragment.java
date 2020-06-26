@@ -23,7 +23,9 @@ public class DetailMeetingFragment extends Fragment {
     @BindView(R.id.fragment_detail_meeting_tv_room) TextView mRoomTv;
     @BindView(R.id.fragment_detail_meeting_tv_emails) TextView mEmailsTv;
     @BindView(R.id.fragment_detail_meeting_tv_time) TextView mTimeTv;
+    @BindView(R.id.fragment_detail_meeting_tv_emails2) TextView mEmailsTv2;
     private Meeting meeting;
+
 
     public static DetailMeetingFragment newInstance(Meeting meeting) {
         DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
@@ -54,8 +56,25 @@ public class DetailMeetingFragment extends Fragment {
         mTimeTv.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime()));
         mRoomTv.setText(meeting.getRoom());
         mSubjectTv.setText(meeting.getSubject());
-        mEmailsTv.setText(meeting.getEmails()
-                .replace(",", "\n")
-                .replace(" ", ""));
+        if (getResources().getBoolean(R.bool.is_tablet)) {
+            mEmailsTv.setText(initEmails(1));
+            mEmailsTv2.setText(initEmails(2));
+        } else {
+            mEmailsTv.setText(meeting.getEmails().replace(",", "\n").replace(" ", ""));
+        }
+    }
+
+    private String initEmails(int partToReturn) {
+        String[] emailArray = meeting.getEmails().split(",");
+        String str = "";
+        for (int i = 0; i < emailArray.length; i++) {
+            if (partToReturn == 1 && i <= emailArray.length / 2) {
+                str = str + emailArray[i] + "\n";
+            } else if (partToReturn == 2 && i > emailArray.length / 2) {
+                str = str + emailArray[i] + "\n";
+            }
+        }
+        str = str.replaceAll(" ", "");
+        return str;
     }
 }

@@ -1,5 +1,8 @@
 package com.test.example.maru.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -9,6 +12,8 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     private Long filterMinDate;
     private Long filterMaxDate;
     private String filterRoom;
+    private int mRecyclerViewHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +97,15 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             if (mFilterIsOpen) {
                 closeFilter();
             } else {
+                // TODO add listener in annimation and change size when finish and when start :
+          /*      ViewGroup.LayoutParams params = mRecyclerView.getLayoutParams();
+                params.height =  mRecyclerView.getHeight() - getResources().getDimensionPixelSize(R.dimen.filter_translationY);
+                mRecyclerView.setLayoutParams(params);*/
+
                 mFilter.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
-                mRecyclerView.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
+                //   mRecyclerView.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
+
+                changeRecyclerviewSize(mRecyclerView.getHeight() - getResources().getDimensionPixelSize(R.dimen.filter_translationY));
                 if (isTablet) {
                     mDetailView.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
                 }
@@ -103,18 +116,16 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     }
 
     private void initViews() {
-
         if (isTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mMeetingsAdapter = new MeetingRecyclerViewAdapter(mMeetingListFiltered, this);
         mRecyclerView.setAdapter(mMeetingsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
         mAddFab.setOnClickListener(view -> {
+            if (mFilterIsOpen)  closeFilter();
             Intent startAddMeetingActivity = new Intent(this, AddMeetingActivity.class);
             startActivity(startAddMeetingActivity);
-            closeFilter();
         });
         mStartDate.getEditText().setOnClickListener(v -> {
             DatePickerFragment mDatePickerFragment = new DatePickerFragment(START_FILTER_TAG);
@@ -128,31 +139,18 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, room);
         mRoomACTV.setAdapter(roomAdapter);
         mRoomACTV.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
                 filterRoom = mRoomACTV.getText().toString();
                 filter();
-                /*   mMeetingsAdapter.getFilter().filter(mRoomACTV.getText());*/
             }
         });
         mStartDate.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -164,12 +162,9 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         });
         mEndDate.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -229,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             mAddFab.hide();
             mRecyclerView.setVisibility(View.INVISIBLE);
             getSupportActionBar().setTitle("Détail de la réunion");
-            closeFilter();
+           if (mFilterIsOpen)  closeFilter();
         } //else mAddFab.show();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.activity_main_fl_detail, DetailMeetingFragment.newInstance(mMeetingListFiltered.get(position))).commit();
@@ -246,8 +241,9 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     }
 
     private void closeFilter() {
+        changeRecyclerviewSize(mRecyclerView.getHeight() + getResources().getDimensionPixelSize(R.dimen.filter_translationY));
         mFilter.animate().setDuration(1000).translationY(0);
-        mRecyclerView.animate().setDuration(1000).translationY(0);
+        // mRecyclerView.animate().setDuration(1000).translationY(0);
         if (isTablet) mDetailView.animate().setDuration(1000).translationY(0);
         mFilterIsOpen = false;
     }
@@ -289,5 +285,32 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
                 mMeetingListFiltered.add(meeting);
         }
         mMeetingsAdapter.notifyDataSetChanged();
+    }
+
+    public void changeRecyclerviewSize(int size) {
+        ValueAnimator slideAnimator = ValueAnimator
+                .ofInt(mRecyclerView.getHeight(), size)
+                .setDuration(1000);
+        slideAnimator.addUpdateListener(animation1 -> {
+            Integer value = (Integer) animation1.getAnimatedValue();
+            mRecyclerView.getLayoutParams().height = value.intValue();
+            mRecyclerView.requestLayout();
+        });
+        AnimatorSet animationSet = new AnimatorSet();
+        animationSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animationSet.play(slideAnimator);
+        animationSet.addListener(new Animator.AnimatorListener() {
+            @Override public void onAnimationStart(Animator animation) {
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+
+            @Override public void onAnimationEnd(Animator animation) {
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            }
+            @Override public void onAnimationCancel(Animator animation) {}
+            @Override public void onAnimationRepeat(Animator animation) {}
+        });
+        animationSet.start();
     }
 }
