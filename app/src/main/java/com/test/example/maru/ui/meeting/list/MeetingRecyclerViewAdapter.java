@@ -29,9 +29,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     private OnMeetingClickListener listener;
     private Context mContext;
 
-    public MeetingRecyclerViewAdapter(List<Meeting> meetings, OnMeetingClickListener listener) {
+    public MeetingRecyclerViewAdapter(List<Meeting> meetings, OnMeetingClickListener listener,Context context) {
         this.meetings = meetings;
         this.listener = listener;
+        this.mContext = context;
+
     }
 
     @NonNull
@@ -51,7 +53,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
                 .replace("]", "")
                 .replace(" ", ""));
         holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getRoom());
-        holder.mMeetingDate.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime()));
+        holder.mMeetingDate.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime(),mContext));
         holder.mDeleteButton.setOnClickListener(v -> listener.onMeetingDelete(meeting));
         int colorposition = Arrays.asList(holder.mViewShape.getResources().getStringArray(R.array.room_array)).indexOf(meeting.getRoom());
         String[] color = holder.mViewShape.getResources().getStringArray(R.array.room_color);
@@ -88,9 +90,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         @Override
         public void onClick(View view) {
-            notifyItemChanged(selectedPos);
-            selectedPos = getLayoutPosition();
-            notifyItemChanged(selectedPos);
+            if (view.getResources().getBoolean(R.bool.is_tablet)) {
+                notifyItemChanged(selectedPos);
+                selectedPos = getLayoutPosition();
+                notifyItemChanged(selectedPos);
+            }
             listener.onMeetingItemHolderClick(getAdapterPosition());
         }
     }

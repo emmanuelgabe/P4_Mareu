@@ -28,10 +28,10 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         String title = null;
         if (tag == DURATION_TIME_TAG) {
             hourOfDay = 0;
-            title = "Durée de la réunion";
+            title = getString(R.string.dialog_timepicker_title_duration);
         } else if (tag == HOUR_MEETING_TAG) {
             hourOfDay = 12;
-            title = "Heure de la réunion";
+            title = getString(R.string.dialog_timepicker_title_hour);
         }
         TimePickerDialog mTimePickerDialog = new TimePickerDialog(getActivity(), R.style.MyDialogTheme, this, hourOfDay, 0, true);
         mTimePickerDialog.setTitle(title);

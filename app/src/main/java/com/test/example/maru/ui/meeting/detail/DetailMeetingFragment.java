@@ -53,7 +53,7 @@ public class DetailMeetingFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTimeTv.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime()));
+        mTimeTv.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime(),getContext()));
         mRoomTv.setText(meeting.getRoom());
         mSubjectTv.setText(meeting.getSubject());
         if (getResources().getBoolean(R.bool.is_tablet)) {

@@ -26,10 +26,12 @@
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:timePickerStyle">@style/MyTimePicker</item>
+       <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="MyTimePicker" parent="@android:style/Widget.Material.Light.TimePicker">
         <item name="android:timePickerMode">spinner</item>
+
     </style>
 
 

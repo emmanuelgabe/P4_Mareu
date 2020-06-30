@@ -4,57 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_filter_view"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="@dimen/activity_main_filter_height"
     android:background="@android:color/white"
-    android:elevation="4dp"
+    android:elevation="@dimen/elevation1"
     android:gravity="center"
     app:layout_constraintBottom_toTopOf="parent"
     tools:orientation="horizontal">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/activity_add_meeting_til_room"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/content_filter_til_width"
         android:layout_height="wrap_content"
         app:startIconDrawable="@drawable/ic_room_24dp">
 
         <AutoCompleteTextView
             android:id="@+id/content_filter_actv_room"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="@dimen/AutoCompleteTextView_height"
             android:completionThreshold="1"
-            android:hint="@string/salle_de_reunion" />
+            android:hint="@string/content_filter_tiet_hint_room" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/content_filter_til_meeting_after_date"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/content_filter_til_width"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginLeft="@dimen/spacer1_2"
+        android:layout_marginRight="@dimen/spacer1_2">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:hint="@string/reunion_apres_le"
-            android:maxLength="35"
+            android:hint="@string/content_filter_tiet_hint_meeting_after"
             android:windowSoftInputMode="stateHidden" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/content_filte_til_meeting_befor_date"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/content_filter_til_width"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:hint="@string/reunion_avant_le"
+        android:layout_marginLeft="@dimen/spacer1_2"
+        android:layout_marginRight="@dimen/spacer1_2"
+        android:hint="@string/content_filter_tiet_hint_meeting_befor"
         android:windowSoftInputMode="stateHidden">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:maxLength="35"
             android:windowSoftInputMode="stateHidden" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -3,7 +3,9 @@ package com.test.example.maru.ui;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -115,10 +118,12 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         return super.onOptionsItemSelected(item);
     }
 
+
+
     private void initViews() {
         if (isTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mMeetingsAdapter = new MeetingRecyclerViewAdapter(mMeetingListFiltered, this);
+        mMeetingsAdapter = new MeetingRecyclerViewAdapter(mMeetingListFiltered, this,this);
         mRecyclerView.setAdapter(mMeetingsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -196,8 +201,8 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     @Override
     public void onMeetingDelete(Meeting meeting) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Êtes-vous sûr(e) de vouloir supprimer cette réunion ? ");
-        alertDialogBuilder.setPositiveButton("Oui", (dialog, which) -> {
+        alertDialogBuilder.setMessage(R.string.dialog_delete_meeting_message);
+        alertDialogBuilder.setPositiveButton(R.string.dialog_button_yes, (dialog, which) -> {
             MeetingApiService mApiService = DI.getMeetingApiService();
             mApiService.deleteMeeting(meeting);
             mMeetingListFiltered.remove(meeting);
@@ -207,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             }
             initViews();
         });
-        alertDialogBuilder.setNegativeButton("Non", (dialog, which) -> {
+        alertDialogBuilder.setNegativeButton(R.string.dialog_button_no, (dialog, which) -> {
             if (dialog != null) dialog.dismiss();
         });
         AlertDialog dialog = alertDialogBuilder.create();
@@ -223,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             mAddFab.hide();
             mRecyclerView.setVisibility(View.INVISIBLE);
-            getSupportActionBar().setTitle("Détail de la réunion");
+            getSupportActionBar().setTitle(R.string.activity_main_actionbar_title_fragment_detail);
            if (mFilterIsOpen)  closeFilter();
         } //else mAddFab.show();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -231,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     }
 
     private void closeFragment() {
-        getSupportActionBar().setTitle("Maréu");
+        getSupportActionBar().setTitle(R.string.activity_main_actionbar_title);
         mFilterMenuItem.setVisible(true);
         mAddFab.show();
         mRecyclerView.setVisibility(View.VISIBLE);
@@ -260,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        SimpleDateFormat df = new SimpleDateFormat(getString(R.string.date_format), Locale.FRENCH);
         if (tag == START_FILTER_TAG) {
             mStartDate.getEditText().setText(df.format(c.getTime()));
             c.set(Calendar.HOUR, 0);

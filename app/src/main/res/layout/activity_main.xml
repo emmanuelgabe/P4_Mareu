@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <include layout="@layout/content_filter" />
+    <include
+        layout="@layout/content_filter" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_main_recyclerview_meetings"
@@ -28,7 +29,7 @@
         android:id="@+id/activity_main__fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/spacer4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_add_black_24dp" />

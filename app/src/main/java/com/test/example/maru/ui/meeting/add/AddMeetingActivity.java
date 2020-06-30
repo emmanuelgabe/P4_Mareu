@@ -1,17 +1,20 @@
 package com.test.example.maru.ui.meeting.add;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,8 +74,9 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
 
     private void initview() {
         meetingDate = Calendar.getInstance();
+        meetingDate.clear();
         meetingDuration = Calendar.getInstance();
-
+        meetingDuration.clear();
         String[] room = getResources().getStringArray(R.array.room_array);
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, room);
         mRoomAutoCTV.setAdapter(roomAdapter);
@@ -83,7 +87,7 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Ajouter une réunion");
+        getSupportActionBar().setTitle(R.string.activity_add_meeting_actionbar_title);
 
         if (isTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -105,33 +109,49 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         mSubjectTil.getEditText().addTextChangedListener(this);
         mRoomAutoCTV.addTextChangedListener(this);
         mEmailAutoMACTV.addTextChangedListener(this);
-
+        mEmailAutoMACTV.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                validate();
+                return true;
+            }
+            return false;
+        });
         mValidateBtn.setOnClickListener(v -> {
-            if (checkRequiredField()) {
-                Calendar meetingEndDate = Calendar.getInstance();
-                meetingEndDate.setTime(meetingDate.getTime());
-                meetingEndDate.add(Calendar.HOUR_OF_DAY, meetingDuration.get(Calendar.HOUR));
-                meetingEndDate.add(Calendar.MINUTE, meetingDuration.get(Calendar.MINUTE));
-                Meeting mMeeting = new Meeting(
-                        System.currentTimeMillis(),
-                        meetingDate.getTimeInMillis(),
-                        meetingEndDate.getTimeInMillis(),
-                        mRoomAutoCTV.getText().toString(),
-                        mSubjectTil.getEditText().getText().toString(),
-                        sortEmailAlphabetically(mEmailAutoMACTV.getText().toString()));
-                if (meetingPlaceAvaiable(mMeeting)) {
-                    MeetingApiService mApiService = DI.getMeetingApiService();
-                    mApiService.createMeeting(mMeeting);
-                    finish();
-                    Toast.makeText(this, "réunion ajouté avec succès", Toast.LENGTH_LONG).show();
+            validate();
+        });
+    }
+
+    private void validate() {
+        if (checkRequiredField()) {
+            Calendar meetingEndDate = Calendar.getInstance();
+            meetingEndDate.clear();
+            meetingEndDate.setTime(meetingDate.getTime());
+            meetingEndDate.add(Calendar.HOUR_OF_DAY, meetingDuration.get(Calendar.HOUR));
+            meetingEndDate.add(Calendar.MINUTE, meetingDuration.get(Calendar.MINUTE));
+            Meeting mMeeting = new Meeting(
+                    System.currentTimeMillis(),
+                    meetingDate.getTimeInMillis(),
+                    meetingEndDate.getTimeInMillis(),
+                    mRoomAutoCTV.getText().toString(),
+                    mSubjectTil.getEditText().getText().toString(),
+                    sortEmailAlphabetically(mEmailAutoMACTV.getText().toString()));
+            if (meetingPlaceAvaiable(mMeeting)) {
+                MeetingApiService mApiService = DI.getMeetingApiService();
+                mApiService.createMeeting(mMeeting);
+                finish();
+                View view = this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
-        });
+        }
+
     }
 
     @Override
     public void onTimeSet(String tag, TimePicker view, int hourOfDay, int minute) {
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.FRENCH);
+        SimpleDateFormat df = new SimpleDateFormat(getString(R.string.hour_format), Locale.FRENCH);
         if (tag == HOUR_MEETING_TAG) {
             meetingDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
             meetingDate.set(Calendar.MINUTE, minute);
@@ -150,7 +170,7 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         meetingDate.set(Calendar.YEAR, year);
         meetingDate.set(Calendar.MONTH, month);
         meetingDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        SimpleDateFormat df = new SimpleDateFormat(getString(R.string.date_format), Locale.FRENCH);
         mDateTil.getEditText().setText(df.format(meetingDate.getTime()));
         mDateTil.setError(null);
     }
@@ -158,30 +178,30 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
     private boolean checkRequiredField() {
         boolean requiredFiledIsNotEmpty = true;
         if (TextUtils.isEmpty(mRoomAutoCTV.getText())) {
-            mRoomTil.setError("Veuillez saisir le lieu de la réunion");
+            mRoomTil.setError(getString(R.string.activity_add_meeting_error_room_empty));
             requiredFiledIsNotEmpty = false;
         } else if (!Arrays.asList(getResources().getStringArray(R.array.room_array)).contains(mRoomAutoCTV.getText().toString())) {
-            mRoomTil.setError("Le lieu de réunion saisit n'est pas répertorié");
+            mRoomTil.setError(getString(R.string.activity_add_meeting_error_room_unknown));
             requiredFiledIsNotEmpty = false;
         }
         if (TextUtils.isEmpty(mSubjectTil.getEditText().getText())) {
-            mSubjectTil.setError("veuillez saisir le sujet de la réunion");
+            mSubjectTil.setError(getString(R.string.activity_add_meeting_error_subject_empty));
             requiredFiledIsNotEmpty = false;
         }
         if (TextUtils.isEmpty(mDurationTil.getEditText().getText())) {
-            mDurationTil.setError("Veuillez saisir la durée de la réunion");
+            mDurationTil.setError(getString(R.string.activity_add_meeting_error_duration_empty));
             requiredFiledIsNotEmpty = false;
         }
         if (TextUtils.isEmpty(mHourTil.getEditText().getText())) {
-            mHourTil.setError("Veuillez saisir l'heure de la réunion");
+            mHourTil.setError(getString(R.string.activity_add_meeting_error_hour_empty));
             requiredFiledIsNotEmpty = false;
         }
         if (TextUtils.isEmpty(mDateTil.getEditText().getText())) {
-            mDateTil.setError("Veuillez saisir la date de la réunion");
+            mDateTil.setError(getString(R.string.activity_add_meeting_error_date_empty));
             requiredFiledIsNotEmpty = false;
         }
         if (TextUtils.isEmpty(mEmailAutoMACTV.getText())) {
-            mEmailTil.setError("Veuillez saisir le lieu de la réunion");
+            mEmailTil.setError(getString(R.string.activity_add_meeting_error_email_empty));
             requiredFiledIsNotEmpty = false;
         }
         return requiredFiledIsNotEmpty;
@@ -203,9 +223,9 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
 
     private void showDialogf(Meeting m) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("Ce créneau est déjà pris");
-        alertDialog.setMessage("La réunion suivante est déjà présente dans " + m.getRoom() + " : " + m.getSubject() + " \n " + getStringTimeDateInformations(m.getStartTime(), m.getEndTime()));
-        alertDialog.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.cancel());
+        alertDialog.setTitle(R.string.dialog_add_meeting_error_title_timeslottaken);
+        alertDialog.setMessage(getString(R.string.dialog_add_meeting_dialog_error_timeslottaken) + "\n" + m.getSubject() + " \n" + m.getRoom() + "\n " + getStringTimeDateInformations(m.getStartTime(), m.getEndTime(), this));
+        alertDialog.setPositiveButton(getString(R.string.dialog_button_ok), (dialog, which) -> dialog.cancel());
         AlertDialog dialog = alertDialog.create();
         dialog.show();
     }
@@ -224,14 +244,16 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
     }
 
     private String sortEmailAlphabetically(String emails) {
-        String[] emailArray = emails
-                .substring(0, emails.length() - 2)
-                .split(",");
-        Arrays.sort(emailArray);
+        if (emails.contains(",")) {
+            String[] emailArray = emails
+                    .substring(0, emails.length() - 2)
+                    .split(",");
+            Arrays.sort(emailArray);
 
-        emails = Arrays.toString(emailArray);
-        emails = emails.replace("[", "")
-                .replace("]", "");
-        return emails;
+            emails = Arrays.toString(emailArray);
+            emails = emails.replace("[", "")
+                    .replace("]", "");
+            return emails;
+        } else return emails;
     }
 }

@@ -27,9 +27,11 @@ public abstract class DummyMeetingGenerator {
 
     private static Long generateMeetingDate(int day, int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_MONTH, day);
-        c.add(Calendar.HOUR, hour);
+        c.set(Calendar.MILLISECOND,0);
+        c.set(Calendar.SECOND,0);
         c.set(Calendar.MINUTE, minute);
+        c.add(Calendar.HOUR, hour);
+        c.add(Calendar.DAY_OF_MONTH, day);
         return c.getTimeInMillis();
     }
 }
