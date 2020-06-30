@@ -3,9 +3,7 @@ package com.test.example.maru.ui;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -52,7 +49,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MeetingRecyclerViewAdapter.OnMeetingClickListener, DatePickerFragment.OnDateSetListener {
     public static final String START_FILTER_TAG = "StartDateMeeting";
     public static final String END_FILTER_TAG = "EndDateMeeting";
-
     @BindView(R.id.activity_main_fl_detail) FrameLayout mDetailView;
     @BindView(R.id.activity_main_recyclerview_meetings) RecyclerView mRecyclerView;
     @BindView(R.id.activity_main__fab_add) FloatingActionButton mAddFab;
@@ -60,24 +56,23 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     @BindView(R.id.content_filter_til_meeting_after_date) TextInputLayout mStartDate;
     @BindView(R.id.content_filte_til_meeting_befor_date) TextInputLayout mEndDate;
     @BindView(R.id.content_filter_actv_room) AutoCompleteTextView mRoomACTV;
-    MenuItem mFilterMenuItem;
-    Boolean mFilterIsOpen = false;
+    private MenuItem mFilterMenuItem;
+    private Boolean mFilterIsOpen = false;
     private List<Meeting> mMeetingList;
-    private boolean isTablet;
+    private List<Meeting> mMeetingListFiltered;
+    private boolean mIsTablet;
     private MeetingApiService mApiService;
     private MeetingRecyclerViewAdapter mMeetingsAdapter;
-    private List<Meeting> mMeetingListFiltered;
     private Long filterMinDate;
     private Long filterMaxDate;
     private String filterRoom;
-    private int mRecyclerViewHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        isTablet = getResources().getBoolean(R.bool.is_tablet);
+        mIsTablet = getResources().getBoolean(R.bool.is_tablet);
         mApiService = DI.getMeetingApiService();
         mMeetingList = mApiService.getMeetings();
         mMeetingListFiltered = new ArrayList<>();
@@ -97,38 +92,26 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.filter_item) {
-            if (mFilterIsOpen) {
-                closeFilter();
-            } else {
-                // TODO add listener in annimation and change size when finish and when start :
-          /*      ViewGroup.LayoutParams params = mRecyclerView.getLayoutParams();
-                params.height =  mRecyclerView.getHeight() - getResources().getDimensionPixelSize(R.dimen.filter_translationY);
-                mRecyclerView.setLayoutParams(params);*/
-
+            if (mFilterIsOpen) closeFilter();
+            else {
                 mFilter.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
-                //   mRecyclerView.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
-
                 changeRecyclerviewSize(mRecyclerView.getHeight() - getResources().getDimensionPixelSize(R.dimen.filter_translationY));
-                if (isTablet) {
-                    mDetailView.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
-                }
+                if (mIsTablet) mDetailView.animate().setDuration(1000).translationY(getResources().getDimensionPixelSize(R.dimen.filter_translationY));
                 mFilterIsOpen = true;
             }
         }
         return super.onOptionsItemSelected(item);
     }
 
-
-
     private void initViews() {
-        if (isTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        if (mIsTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mMeetingsAdapter = new MeetingRecyclerViewAdapter(mMeetingListFiltered, this,this);
+        mMeetingsAdapter = new MeetingRecyclerViewAdapter(mMeetingListFiltered, this, this);
         mRecyclerView.setAdapter(mMeetingsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); //TODO
         mAddFab.setOnClickListener(view -> {
-            if (mFilterIsOpen)  closeFilter();
+            if (mFilterIsOpen) closeFilter();
             Intent startAddMeetingActivity = new Intent(this, AddMeetingActivity.class);
             startActivity(startAddMeetingActivity);
         });
@@ -144,8 +127,13 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, room);
         mRoomACTV.setAdapter(roomAdapter);
         mRoomACTV.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -153,31 +141,15 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
                 filter();
             }
         });
-        mStartDate.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 0) {
-                    filterMinDate = Long.MIN_VALUE;
-                    filter();
-                }
-            }
+        mStartDate.setEndIconOnClickListener(v -> {
+            mStartDate.getEditText().setText("");
+            filterMinDate = Long.MIN_VALUE;
+            filter();
         });
-        mEndDate.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 0) {
-                    filterMaxDate = Long.MAX_VALUE;
-                    filter();
-                }
-            }
+        mEndDate.setEndIconOnClickListener(v -> {
+            mEndDate.getEditText().setText("");
+            filterMaxDate = Long.MAX_VALUE;
+            filter();
         });
     }
 
@@ -206,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             MeetingApiService mApiService = DI.getMeetingApiService();
             mApiService.deleteMeeting(meeting);
             mMeetingListFiltered.remove(meeting);
-            if (isTablet) {
+            if (mIsTablet) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.remove(getSupportFragmentManager().findFragmentById(R.id.activity_main_fl_detail)).commit();
             }
@@ -221,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
 
     @Override
     public void onMeetingItemHolderClick(int position) {
-        if (!isTablet) {
+        if (!mIsTablet) {
             mFilterMenuItem.setVisible(false);
             mDetailView.setVisibility(View.VISIBLE);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -229,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             mAddFab.hide();
             mRecyclerView.setVisibility(View.INVISIBLE);
             getSupportActionBar().setTitle(R.string.activity_main_actionbar_title_fragment_detail);
-           if (mFilterIsOpen)  closeFilter();
+            if (mFilterIsOpen) closeFilter();
         } //else mAddFab.show();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.activity_main_fl_detail, DetailMeetingFragment.newInstance(mMeetingListFiltered.get(position))).commit();
@@ -249,13 +221,13 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         changeRecyclerviewSize(mRecyclerView.getHeight() + getResources().getDimensionPixelSize(R.dimen.filter_translationY));
         mFilter.animate().setDuration(1000).translationY(0);
         // mRecyclerView.animate().setDuration(1000).translationY(0);
-        if (isTablet) mDetailView.animate().setDuration(1000).translationY(0);
+        if (mIsTablet) mDetailView.animate().setDuration(1000).translationY(0);
         mFilterIsOpen = false;
     }
 
     @Override
     public void onBackPressed() {
-        if (mDetailView.isShown() && !isTablet) closeFragment();
+        if (mDetailView.isShown() && !mIsTablet) closeFragment();
         else super.onBackPressed();
     }
 
@@ -313,8 +285,12 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             @Override public void onAnimationEnd(Animator animation) {
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
-            @Override public void onAnimationCancel(Animator animation) {}
-            @Override public void onAnimationRepeat(Animator animation) {}
+
+            @Override public void onAnimationCancel(Animator animation) {
+            }
+
+            @Override public void onAnimationRepeat(Animator animation) {
+            }
         });
         animationSet.start();
     }
