@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateTimeUtils {
+public abstract class DateTimeUtils {
 
     public static String getStringTimeDateInformations(Long startDateMillis, Long endDateMillis, Context ctx) {
         SimpleDateFormat startDateDf = new SimpleDateFormat(ctx.getResources().getString(R.string.date_format), Locale.FRANCE);

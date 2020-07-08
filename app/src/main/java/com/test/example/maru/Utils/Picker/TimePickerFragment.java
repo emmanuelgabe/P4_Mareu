@@ -27,7 +27,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         int hourOfDay = 0;
         String title = null;
         if (tag == DURATION_TIME_TAG) {
-            hourOfDay = 0;
+            hourOfDay = 1;
             title = getString(R.string.dialog_timepicker_title_duration);
         } else if (tag == HOUR_MEETING_TAG) {
             hourOfDay = 12;

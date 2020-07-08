@@ -17,15 +17,18 @@ import com.test.example.maru.Utils.DateTimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.test.example.maru.Utils.EmailStringUtils.formatEmails;
+import static com.test.example.maru.Utils.EmailStringUtils.getEmailsSplit;
+
+
 public class DetailMeetingFragment extends Fragment {
     public static final String KEY_MEETING = "MEETING_POSITION";
-    @BindView(R.id.fragment_detail_meeting__tv_subject) TextView mSubjectTv;
+    public static Meeting sMeeting;
+    @BindView(R.id.fragment_detail_meeting_tv_subject) TextView mSubjectTv;
     @BindView(R.id.fragment_detail_meeting_tv_room) TextView mRoomTv;
     @BindView(R.id.fragment_detail_meeting_tv_emails) TextView mEmailsTv;
     @BindView(R.id.fragment_detail_meeting_tv_time) TextView mTimeTv;
     @BindView(R.id.fragment_detail_meeting_tv_emails2) TextView mEmailsTv2;
-    private Meeting meeting;
-
 
     public static DetailMeetingFragment newInstance(Meeting meeting) {
         DetailMeetingFragment detailMeetingFragment = new DetailMeetingFragment();
@@ -37,7 +40,7 @@ public class DetailMeetingFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        meeting = getArguments().getParcelable(KEY_MEETING);
+        sMeeting = getArguments().getParcelable(KEY_MEETING);
         super.onCreate(savedInstanceState);
     }
 
@@ -53,28 +56,14 @@ public class DetailMeetingFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTimeTv.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime(),getContext()));
-        mRoomTv.setText(meeting.getRoom());
-        mSubjectTv.setText(meeting.getSubject());
+        mTimeTv.setText(DateTimeUtils.getStringTimeDateInformations(sMeeting.getStartTime(), sMeeting.getEndTime(), getContext()));
+        mRoomTv.setText(sMeeting.getRoom());
+        mSubjectTv.setText(sMeeting.getSubject());
         if (getResources().getBoolean(R.bool.is_tablet)) {
-            mEmailsTv.setText(initEmails(1));
-            mEmailsTv2.setText(initEmails(2));
+            mEmailsTv.setText(getEmailsSplit(1, sMeeting.getEmails()));
+            mEmailsTv2.setText(getEmailsSplit(2, sMeeting.getEmails()));
         } else {
-            mEmailsTv.setText(meeting.getEmails().replace(",", "\n").replace(" ", ""));
+            mEmailsTv.setText(formatEmails(sMeeting.getEmails()));
         }
-    }
-
-    private String initEmails(int partToReturn) {
-        String[] emailArray = meeting.getEmails().split(",");
-        String str = "";
-        for (int i = 0; i < emailArray.length; i++) {
-            if (partToReturn == 1 && i <= emailArray.length / 2) {
-                str = str + emailArray[i] + "\n";
-            } else if (partToReturn == 2 && i > emailArray.length / 2) {
-                str = str + emailArray[i] + "\n";
-            }
-        }
-        str = str.replaceAll(" ", "");
-        return str;
     }
 }

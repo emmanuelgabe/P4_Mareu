@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/activity_main_filter_height"
     android:background="@android:color/white"
-    android:elevation="@dimen/elevation1"
+    android:elevation="@dimen/elevation2"
     android:gravity="center"
     app:layout_constraintBottom_toTopOf="parent"
     tools:orientation="horizontal">
@@ -43,7 +43,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/content_filte_til_meeting_befor_date"
+        android:id="@+id/content_filte_til_meeting_before_date"
         android:layout_width="@dimen/content_filter_til_width"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacer1_2"

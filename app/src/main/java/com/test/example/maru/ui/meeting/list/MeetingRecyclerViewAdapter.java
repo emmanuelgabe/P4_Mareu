@@ -55,10 +55,12 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mMeetingInfo.setText(meeting.getSubject() + " - " + meeting.getRoom());
         holder.mMeetingDate.setText(DateTimeUtils.getStringTimeDateInformations(meeting.getStartTime(), meeting.getEndTime(),mContext));
         holder.mDeleteButton.setOnClickListener(v -> listener.onMeetingDelete(meeting));
-        int colorposition = Arrays.asList(holder.mViewShape.getResources().getStringArray(R.array.room_array)).indexOf(meeting.getRoom());
+
+        int colorPosition = Arrays.asList(holder.mViewShape.getResources().getStringArray(R.array.room_array)).indexOf(meeting.getRoom());
         String[] color = holder.mViewShape.getResources().getStringArray(R.array.room_color);
+
         GradientDrawable backgroundGradient = (GradientDrawable) holder.mViewShape.getBackground();
-        backgroundGradient.setColor(Color.parseColor((color[colorposition])));
+        backgroundGradient.setColor(Color.parseColor((color[colorPosition])));
         holder.itemView.setSelected(selectedPos == position);
     }
 
@@ -67,10 +69,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         return meetings.size();
     }
 
-
     public interface OnMeetingClickListener {
         void onMeetingDelete(Meeting meeting);
-
         void onMeetingItemHolderClick(int position);
     }
 

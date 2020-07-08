@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#ce0a24</color>
     <color name="colorOnSecondary">#FFFFFF</color>
-    <color name="selec">#dcdcdc</color>
+    <color name="selector_selected_state">#dcdcdc</color>
+    <color name="color_bar_view">#A3A3A3</color>
+
 </resources>

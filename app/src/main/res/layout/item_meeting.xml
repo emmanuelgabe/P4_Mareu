@@ -1,79 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_holder"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_meeting_heigt"
-    android:background="@drawable/selector_recyclerview"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:layout_marginLeft="@dimen/spacer1_2"
+    android:layout_marginTop="@dimen/spacer1_1"
+    android:layout_marginRight="@dimen/spacer1_2"
+app:cardCornerRadius="0dp"
+    app:cardElevation="@dimen/elevation1">
 
-    <View
-        android:id="@+id/item_meeting_view_shape"
-        android:layout_width="@dimen/item_meeting_shape_height_width"
-        android:layout_height="@dimen/item_meeting_shape_height_width"
-        android:layout_marginStart="@dimen/spacer4"
-        android:layout_marginTop="@dimen/spacer2_1"
-        android:layout_marginBottom="@dimen/spacer2_1"
-        android:background="@drawable/shape_item_meeting"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_recyclerview"
+        android:foreground="?android:attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/item_meeting_tv_meeting_info"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacer4"
-        android:layout_marginTop="@dimen/spacer1_2"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/item_meeting_view_shape"
-        app:layout_constraintRight_toLeftOf="@+id/item_meeting_btn_delete"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Réunion A - Salle 3" />
+        <View
+            android:id="@+id/item_meeting_view_shape"
+            android:layout_width="@dimen/item_meeting_shape_height_width"
+            android:layout_height="@dimen/item_meeting_shape_height_width"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer2_1"
+            android:layout_marginBottom="@dimen/spacer2_1"
+            android:background="@drawable/shape_item_meeting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/item_meeting_tv_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacer4"
-        android:layout_marginTop="1dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toRightOf="@+id/item_meeting_view_shape"
-        app:layout_constraintRight_toLeftOf="@+id/item_meeting_btn_delete"
-        app:layout_constraintTop_toBottomOf="@+id/item_meeting_tv_meeting_info"
-        tools:text="le 24/02/2020 de 13h30 à 15h00" />
+        <TextView
+            android:id="@+id/item_meeting_tv_meeting_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer1_2"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/item_meeting_view_shape"
+            app:layout_constraintRight_toLeftOf="@+id/item_meeting_btn_delete"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Réunion A - Salle 3" />
 
-    <TextView
-        android:id="@+id/item_meeting_tv_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/spacer4"
-        android:layout_marginTop="1dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toRightOf="@+id/item_meeting_view_shape"
-        app:layout_constraintRight_toLeftOf="@+id/item_meeting_btn_delete"
-        app:layout_constraintTop_toBottomOf="@+id/item_meeting_tv_date"
-        tools:text="maxime@lamazone.com, alex@lamazone.com, amelie@lamazone.com" />
+        <TextView
+            android:id="@+id/item_meeting_tv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@+id/item_meeting_view_shape"
+            app:layout_constraintRight_toLeftOf="@+id/item_meeting_btn_delete"
+            app:layout_constraintTop_toBottomOf="@+id/item_meeting_tv_meeting_info"
+            tools:text="le 24/02/2020 de 13h30 à 15h00" />
 
-    <ImageButton
-        android:id="@+id/item_meeting_btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacer4"
-        android:background="@null"
-        android:contentDescription="@string/item_meeting_image_button_delete_content_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_delete_black_24dp" />
+        <TextView
+            android:id="@+id/item_meeting_tv_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@+id/item_meeting_view_shape"
+            app:layout_constraintRight_toLeftOf="@+id/item_meeting_btn_delete"
+            app:layout_constraintTop_toBottomOf="@+id/item_meeting_tv_date"
+            tools:text="maxime@lamazone.com, alex@lamazone.com, amelie@lamazone.com" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/item_meeting_btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacer4"
+            android:background="@null"
+            android:contentDescription="@string/item_meeting_image_button_delete_content_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete_black_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

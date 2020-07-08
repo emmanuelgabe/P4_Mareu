@@ -1,14 +1,11 @@
 package com.test.example.maru.ui.meeting.add;
 
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -37,11 +34,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.test.example.maru.Utils.DateTimeUtils.getStringTimeDateInformations;
+import static com.test.example.maru.Utils.EmailStringUtils.sortEmailAlphabetically;
 
 public class AddMeetingActivity extends AppCompatActivity implements TimePickerFragment.OnTimeSetListener, DatePickerFragment.OnDateSetListener, TextWatcher {
-    public static final String DURATION_TIME_TAG = "DurationPicker";
-    public static final String HOUR_MEETING_TAG = "HourPicker";
-    public static final String DATE_MEETING_TAG = "DateMeeting";
+    public static final String DURATION_TIME_TAG = "newMeetingDuration";
+    public static final String HOUR_MEETING_TAG = "newMeetingHour";
+    public static final String DATE_MEETING_TAG = "newMeetingDate";
 
     @BindView(R.id.activity_add_meeting_btn_validate) Button mValidateBtn;
     @BindView(R.id.activity_add_meeting_til_duration) TextInputLayout mDurationTil;
@@ -55,14 +53,12 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
 
     private Calendar meetingDate;
     private Calendar meetingDuration;
-    private boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
-        isTablet = getResources().getBoolean(R.bool.is_tablet);
         initview();
     }
 
@@ -73,24 +69,26 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
     }
 
     private void initview() {
+        if (getResources().getBoolean(R.bool.is_tablet)) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         meetingDate = Calendar.getInstance();
         meetingDate.clear();
         meetingDuration = Calendar.getInstance();
         meetingDuration.clear();
+
         String[] room = getResources().getStringArray(R.array.room_array);
-        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, room);
+        ArrayAdapter<String> roomAdapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, room);
         mRoomAutoCTV.setAdapter(roomAdapter);
         String[] email = getResources().getStringArray(R.array.email);
-        ArrayAdapter<String> emailAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, email);
+        ArrayAdapter<String> emailAdapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, email);
         mEmailAutoMACTV.setAdapter(emailAdapter);
         mEmailAutoMACTV.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.activity_add_meeting_actionbar_title);
-
-        if (isTablet) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         mDateTil.getEditText().setOnClickListener(v -> {
             DatePickerFragment mDatePickerFragment = new DatePickerFragment(DATE_MEETING_TAG);
@@ -128,22 +126,17 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
             meetingEndDate.setTime(meetingDate.getTime());
             meetingEndDate.add(Calendar.HOUR_OF_DAY, meetingDuration.get(Calendar.HOUR));
             meetingEndDate.add(Calendar.MINUTE, meetingDuration.get(Calendar.MINUTE));
-            Meeting mMeeting = new Meeting(
+            Meeting meeting = new Meeting(
                     System.currentTimeMillis(),
                     meetingDate.getTimeInMillis(),
                     meetingEndDate.getTimeInMillis(),
                     mRoomAutoCTV.getText().toString(),
                     mSubjectTil.getEditText().getText().toString(),
                     sortEmailAlphabetically(mEmailAutoMACTV.getText().toString()));
-            if (meetingPlaceAvaiable(mMeeting)) {
+            if (meetingPlaceIsAvaiable(meeting)) {
                 MeetingApiService mApiService = DI.getMeetingApiService();
-                mApiService.createMeeting(mMeeting);
+                mApiService.createMeeting(meeting);
                 finish();
-                View view = this.getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
             }
         }
 
@@ -207,7 +200,7 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         return requiredFiledIsNotEmpty;
     }
 
-    private boolean meetingPlaceAvaiable(Meeting newMeeting) {
+    private boolean meetingPlaceIsAvaiable(Meeting newMeeting) {
         MeetingApiService mApiService = DI.getMeetingApiService();
         List<Meeting> meetingList = mApiService.getMeetings();
         for (Meeting m : meetingList) {
@@ -243,17 +236,5 @@ public class AddMeetingActivity extends AppCompatActivity implements TimePickerF
         if (!TextUtils.isEmpty(mEmailAutoMACTV.getText())) mEmailTil.setError(null);
     }
 
-    private String sortEmailAlphabetically(String emails) {
-        if (emails.contains(",")) {
-            String[] emailArray = emails
-                    .substring(0, emails.length() - 2)
-                    .split(",");
-            Arrays.sort(emailArray);
 
-            emails = Arrays.toString(emailArray);
-            emails = emails.replace("[", "")
-                    .replace("]", "");
-            return emails;
-        } else return emails;
-    }
 }
