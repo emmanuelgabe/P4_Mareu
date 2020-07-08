@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorOnSecondary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacer4">
+
+        <TextView
+            android:id="@+id/fragment_detail_meeting_tv_subject"
+            style="@style/Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer4"
+            android:layout_marginEnd="@dimen/spacer4"
+            android:ellipsize="end"
+            android:singleLine="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Réunion d’information" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detaill_meeting_bar_view"
+            android:layout_marginTop="@dimen/spacer1_2"
+            android:background="@color/color_bar_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_subject" />
+
+        <TextView
+            android:id="@+id/fragment_detail_meeting_tv_room"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer7"
+            android:layout_marginEnd="@dimen/spacer4"
+            android:drawableStart="@drawable/ic_room_24dp"
+            android:drawablePadding="@dimen/spacer1_2"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#C7000000"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_subject"
+            tools:text="Salle 3" />
+
+        <TextView
+            android:id="@+id/fragment_detail_meeting_tv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer1_2"
+            android:layout_marginEnd="@dimen/spacer4"
+            android:drawableStart="@drawable/ic_access_time_24dp"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#C7000000"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_room"
+            tools:text="15h00" />
+
+        <TextView
+            android:id="@+id/fragment_detail_meeting_tv_emails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer1_2"
+            android:layout_marginEnd="@dimen/spacer4"
+            android:drawableStart="@drawable/ic_group_24dp"
+            android:drawablePadding="@dimen/spacer1_2"
+            android:ellipsize="end"
+            android:singleLine="false"
+            android:textColor="#C7000000"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_time"
+            tools:text="Alex@lamzone.com \nMaxime@lamzone.com \nPmandine@lamzone.com \nPaul@lamzone.com" />
+
+        <TextView
+            android:id="@+id/fragment_detail_meeting_tv_emails2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer1_2"
+            android:layout_marginEnd="@dimen/spacer4"
+            android:ellipsize="end"
+            android:singleLine="false"
+            android:textColor="#C7000000"
+            android:textSize="@dimen/spacer4"
+            app:layout_constraintLeft_toRightOf="@+id/fragment_detail_meeting_tv_emails"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_time"
+            app:layout_constraintRight_toRightOf="parent"/>
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

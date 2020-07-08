@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity"
+    tools:orientation="horizontal">
+
+    <include layout="@layout/content_filter" />
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/activity_main_recyclerview_meetings"
+        android:layout_width="@dimen/recyclerview_width"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_meeting" />
+
+    <FrameLayout
+        android:id="@+id/activity_main_fl_detail"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorOnSecondary"
+        android:elevation="@dimen/elevation1"
+        android:outlineProvider="bounds"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/activity_main_recyclerview_meetings"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout="@layout/fragment_detail_meeting" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/spacer4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

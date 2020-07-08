@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Maréu</string>
+    <string name="activity_main_actionbar_title">Maréu</string>
+    <string name="activity_main_actionbar_title_fragment_detail">Détail de la réunion</string>
+    <string name="activity_add_meeting_actionbar_title">Ajouter une réunion</string>
+    <string name="activity_add_meeting_tiet_hint_subject">Sujet de la réunion</string>
+    <string name="activity_add_meeting_tiet_hint_date">Date de la réunion</string>
+    <string name="activity_add_meeting_tiet_hint_hour">Heure de la réunion</string>
+    <string name="activity_add_meeting_tiet_hint_duration">Durée de la réunion</string>
+    <string name="activity_add_meeting_mactv_hint_email">Emails des participants</string>
+    <string name="activity_add_meeting_button_add_text">AJOUTER</string>
+    <string name="activity_add_meeting_error_room_empty">Veuillez saisir le lieu de la réunion</string>
+    <string name="activity_add_meeting_error_room_unknown">Le lieu de réunion saisit n\'est pas répertorié</string>
+    <string name="activity_add_meeting_error_subject_empty">veuillez saisir le sujet de la réunion</string>
+    <string name="activity_add_meeting_error_duration_empty">Veuillez saisir la durée de la réunion</string>
+    <string name="activity_add_meeting_error_hour_empty">Veuillez saisir l\'heure de la réunion</string>
+    <string name="activity_add_meeting_error_date_empty">Veuillez saisir la date de la réunion</string>
+    <string name="activity_add_meeting_error_email_empty">Veuillez saisir le lieu de la réunion</string>
+    <string name="item_meeting_image_button_delete_content_description">Delete meeting</string>
+    <string name="content_filter_tiet_hint_room">Salle de réunion</string>
+    <string name="content_filter_tiet_hint_meeting_after">Réunion après le</string>
+    <string name="content_filter_tiet_hint_meeting_befor">Réunion avant le</string>
+    <string name="dialog_add_meeting_error_title_timeslottaken">Ce créneau est déjà pris</string>
+    <string name="dialog_add_meeting_dialog_error_timeslottaken">La réunion suivante est déjà présente</string>
+    <string name="dialog_delete_meeting_message">Êtes-vous sûr(e) de vouloir supprimer cette réunion ?</string>
+    <string name="dialog_button_yes">Oui</string>
+    <string name="dialog_button_no">Non</string>
+    <string name="dialog_timepicker_title_duration">Durée de la réunion</string>
+    <string name="dialog_timepicker_title_hour">Heure de la réunion</string>
+    <string name="dialog_button_ok">OK</string>
+    <string name="date_format">dd/MM/yyyy</string>
+    <string name="hour_format">HH:mm</string>
+
+</resources>

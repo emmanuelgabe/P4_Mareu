@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_filter_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activity_main_filter_height"
+    android:background="@android:color/white"
+    android:elevation="@dimen/elevation2"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toTopOf="parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/content_filter_til_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacer1_2"
+        app:endIconMode="clear_text"
+        app:startIconDrawable="@drawable/ic_room_24dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/content_filter_actv_room"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/AutoCompleteTextView_height"
+            android:completionHint="Salle de réunion"
+            android:completionThreshold="1"
+            android:hint="@string/content_filter_tiet_hint_room" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/content_filter_til_meeting_after_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacer1_2"
+            android:layout_marginRight="@dimen/spacer1_2"
+            android:layout_weight="1"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/content_filter_tiet_hint_meeting_after"
+                android:windowSoftInputMode="stateHidden" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/content_filte_til_meeting_before_date"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacer1_2"
+            android:layout_marginRight="@dimen/spacer1_2"
+            android:layout_weight="1"
+            android:hint="@string/content_filter_tiet_hint_meeting_befor"
+            android:windowSoftInputMode="stateHidden"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:windowSoftInputMode="stateHidden" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</LinearLayout>
