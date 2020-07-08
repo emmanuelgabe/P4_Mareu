@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorOnSecondary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:padding="@dimen/spacer4">
 
         <TextView
-            android:id="@+id/fragment_detail_meeting__tv_subject"
+            android:id="@+id/fragment_detail_meeting_tv_subject"
             style="@style/Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -31,9 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/detaill_meeting_bar_view"
             android:layout_marginTop="@dimen/spacer1_2"
-            android:background="#989898"
+            android:background="@color/color_bar_view"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting__tv_subject" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_subject" />
 
         <TextView
             android:id="@+id/fragment_detail_meeting_tv_room"
@@ -50,7 +51,7 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting__tv_subject"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_meeting_tv_subject"
             tools:text="Salle 3" />
 
         <TextView

@@ -19,23 +19,20 @@
         tools:itemCount="4"
         tools:listitem="@layout/item_meeting" />
 
-    <View
-        android:id="@+id/activity_main_view_bar"
-        android:layout_width="@dimen/activity_main_bar_view"
-        android:layout_height="match_parent"
-        android:background="#A3A3A3"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/activity_main_recyclerview_meetings" />
-
     <FrameLayout
         android:id="@+id/activity_main_fl_detail"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintLeft_toLeftOf="@id/activity_main_view_bar"
+        android:background="@color/colorOnSecondary"
+        android:elevation="@dimen/elevation1"
+        android:outlineProvider="bounds"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/activity_main_recyclerview_meetings"
+        app:layout_constraintRight_toRightOf="parent"
         tools:layout="@layout/fragment_detail_meeting" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/activity_main__fab_add"
+        android:id="@+id/activity_main_fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

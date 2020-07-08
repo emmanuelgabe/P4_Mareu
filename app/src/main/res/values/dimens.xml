@@ -5,7 +5,7 @@
     <dimen name="detaill_meeting_bar_view">1dp</dimen>
     <dimen name="activity_main_bar_view">4dp</dimen>
     <dimen name="AutoCompleteTextView_height">55dp</dimen>
-    <dimen name="item_meeting_heigt">75dp</dimen>
+    <dimen name="item_meeting_heigt">85dp</dimen>
     <dimen name="item_meeting_shape_height_width">50dp</dimen>
     <dimen name="activity_main_filter_height">140dp</dimen>
     <dimen name="recyclerview_width">400dp</dimen>
@@ -22,5 +22,7 @@
     <dimen name="spacer7">18dp</dimen>
     <dimen name="spacer10">24dp</dimen>
     <dimen name="spacer50">200dp</dimen>
+    <dimen name="spacer1_0">3dp</dimen>
+    <dimen name="elevation2">5dp</dimen>
 
 </resources>
