@@ -1,9 +1,9 @@
 <resources>
     <dimen name="elevation1">4dp</dimen>
+    <dimen name="elevation2">5dp</dimen>
 
     <dimen name="filter_translationY">140dp</dimen>
     <dimen name="detaill_meeting_bar_view">1dp</dimen>
-    <dimen name="activity_main_bar_view">4dp</dimen>
     <dimen name="AutoCompleteTextView_height">55dp</dimen>
     <dimen name="item_meeting_heigt">85dp</dimen>
     <dimen name="item_meeting_shape_height_width">50dp</dimen>
@@ -11,18 +11,14 @@
     <dimen name="recyclerview_width">400dp</dimen>
     <dimen name="content_filter_til_width">250dp</dimen>
 
-    <dimen name="activity_margin_start_end">@dimen/spacer4</dimen>
+    <dimen name="activity_margin_start_end">@dimen/spacer3</dimen>
 
     <dimen name="spacer1_1">4dp</dimen>
     <dimen name="spacer1_2">6dp</dimen>
     <dimen name="spacer2">8dp</dimen>
     <dimen name="spacer2_1">10dp</dimen>
-    <dimen name="spacer3">12dp</dimen>
-    <dimen name="spacer4">16dp</dimen>
-    <dimen name="spacer7">18dp</dimen>
-    <dimen name="spacer10">24dp</dimen>
+    <dimen name="spacer3">16dp</dimen>
+    <dimen name="spacer4">18dp</dimen>
     <dimen name="spacer50">200dp</dimen>
-    <dimen name="spacer1_0">3dp</dimen>
-    <dimen name="elevation2">5dp</dimen>
 
 </resources>

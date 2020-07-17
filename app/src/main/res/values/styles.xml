@@ -14,14 +14,8 @@
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
 
-    <style name="Title" parent="@style/TextAppearance.AppCompat.Body2">
+    <style name="Title" parent="@style/TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">21sp</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog">

@@ -19,7 +19,7 @@
     <string name="item_meeting_image_button_delete_content_description">Delete meeting</string>
     <string name="content_filter_tiet_hint_room">Salle de réunion</string>
     <string name="content_filter_tiet_hint_meeting_after">Réunion après le</string>
-    <string name="content_filter_tiet_hint_meeting_befor">Réunion avant le</string>
+    <string name="content_filter_tiet_hint_meeting_before">Réunion avant le</string>
     <string name="dialog_add_meeting_error_title_timeslottaken">Ce créneau est déjà pris</string>
     <string name="dialog_add_meeting_dialog_error_timeslottaken">La réunion suivante est déjà présente</string>
     <string name="dialog_delete_meeting_message">Êtes-vous sûr(e) de vouloir supprimer cette réunion ?</string>
@@ -30,5 +30,6 @@
     <string name="dialog_button_ok">OK</string>
     <string name="date_format">dd/MM/yyyy</string>
     <string name="hour_format">HH:mm</string>
+    <string name="menu_item_title_filter">filter</string>
 
 </resources>

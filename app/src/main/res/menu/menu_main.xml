@@ -1,12 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.test.example.maru.ui.MainActivity">
+    tools:context="com.test.example.mareu.UI.MainActivity">
     <item
         android:id="@+id/filter_item"
         android:icon="@drawable/ic_baseline_filter_list_24"
         android:orderInCategory="100"
-        android:title="filter"
+        android:title="@string/menu_item_title_filter"
         app:showAsAction="always" />
-
 </menu>

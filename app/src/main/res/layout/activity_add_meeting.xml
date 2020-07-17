@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_margin_start_end"
-        android:layout_marginTop="@dimen/spacer4"
+        android:layout_marginTop="@dimen/spacer3"
         android:layout_marginEnd="@dimen/activity_margin_start_end"
-        android:layout_marginBottom="@dimen/spacer4"
+        android:layout_marginBottom="@dimen/spacer3"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,8 +47,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/activity_add_meeting_til_date"
@@ -118,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/spacer4"
+            android:layout_marginTop="@dimen/spacer3"
             android:text="@string/activity_add_meeting_button_add_text" />
     </LinearLayout>
 
