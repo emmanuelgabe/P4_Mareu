@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#ce0a24</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="selector_selected_state">#dcdcdc</color>
+    <color name="color_bar_view">#A3A3A3</color>
+
+    <color name="Salle_A">#eb9d9d</color>
+    <color name="Salle_B">#ebce9d</color>
+    <color name="Salle_C">#e5eb9d</color>
+    <color name="Salle_D">#beeb9d</color>
+    <color name="Salle_E">#9deba2</color>
+    <color name="Salle_F">#9debe1</color>
+    <color name="Salle_G">#9dddeb</color>
+    <color name="Auditorium">#9daaeb</color>
+    <color name="Amphitheatre">#d29deb</color>
+
+</resources>

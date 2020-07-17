@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_margin_start_end">@dimen/spacer50</dimen>
+    <dimen name="filter_translationY">90dp</dimen>
+    <dimen name="activity_main_filter_height">90dp</dimen>
+
+</resources>

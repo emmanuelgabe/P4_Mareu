@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_margin_start_end"
+        android:layout_marginTop="@dimen/spacer3"
+        android:layout_marginEnd="@dimen/activity_margin_start_end"
+        android:layout_marginBottom="@dimen/spacer3"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_add_meeting_til_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/activity_add_meeting_tie_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_add_meeting_tiet_hint_subject"
+                android:maxLength="35"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_add_meeting_til_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_room_24dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/activity_add_meeting_actv_room"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/AutoCompleteTextView_height"
+                android:completionThreshold="1"
+                android:hint="@string/content_filter_tiet_hint_room"
+                android:maxLength="12"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_add_meeting_til_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacer1_1"
+                android:layout_weight="1"
+                app:startIconDrawable="@drawable/ic_baseline_date_range_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="@string/activity_add_meeting_tiet_hint_date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_add_meeting_til_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacer1_1"
+                android:layout_weight="1"
+                app:startIconDrawable="@drawable/ic_access_time_24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="@string/activity_add_meeting_tiet_hint_hour" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_add_meeting_til_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_baseline_hourglass_empty_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/activity_add_meeting_tiet_hint_duration" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_add_meeting_til_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            app:startIconDrawable="@drawable/ic_baseline_person_add_24">
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/activity_add_meeting_mactv_email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/AutoCompleteTextView_height"
+                android:completionThreshold="1"
+                android:drawablePadding="@dimen/spacer1_1"
+                android:hint="@string/activity_add_meeting_mactv_hint_email"
+                android:imeOptions="actionDone"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/activity_add_meeting_btn_validate"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/spacer3"
+            android:text="@string/activity_add_meeting_button_add_text" />
+    </LinearLayout>
+
+</ScrollView>
