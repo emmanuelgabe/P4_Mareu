@@ -7,8 +7,10 @@ import java.util.List;
 /**
  * Dummy mock for the Api
  */
-public class DummyMeetingApiService implements MeetingApiService {
+public class
+DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
+    private List<Meeting> meetingsFiltered = DummyMeetingGenerator.generateMeetings();
 
     @Override
     public List<Meeting> getMeetings() {
@@ -23,5 +25,21 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void createMeeting(Meeting meeting) {
         meetings.add(meeting);
+    }
+
+    @Override public List<Meeting> getMeetingsFiltered() {
+        return meetingsFiltered;
+    }
+
+    @Override public void deleteMeetingsFiltered(Meeting meeting) {
+        meetingsFiltered.remove(meeting);
+    }
+
+    @Override public void addMeetingsFiltered(Meeting meeting) {
+        meetingsFiltered.add(meeting);
+    }
+
+    @Override public void resetMeetingsFiltered() {
+        meetingsFiltered = DummyMeetingGenerator.generateMeetings();
     }
 }

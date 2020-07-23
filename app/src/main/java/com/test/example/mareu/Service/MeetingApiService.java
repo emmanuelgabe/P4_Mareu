@@ -14,4 +14,13 @@ public interface MeetingApiService {
     void deleteMeeting(Meeting meeting);
 
     void createMeeting(Meeting meeting);
+
+    List<Meeting> getMeetingsFiltered();
+
+    void deleteMeetingsFiltered(Meeting meeting);
+
+    void addMeetingsFiltered(Meeting meeting);
+
+    void resetMeetingsFiltered();
+
 }

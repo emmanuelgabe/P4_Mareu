@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     @BindView(R.id.content_filter_actv_room) AutoCompleteTextView mRoomACTV;
     private MenuItem mFilterMenuItem;
     private Boolean mFilterIsOpen = false;
-    private List<Meeting> mMeetingList;
-    private List<Meeting> mMeetingListFiltered;
     private boolean mIsTablet;
     private MeetingApiService mApiService;
     private MeetingRecyclerViewAdapter mMeetingsAdapter;
@@ -71,9 +69,6 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         ButterKnife.bind(this);
         mIsTablet = getResources().getBoolean(R.bool.is_tablet);
         mApiService = DI.getMeetingApiService();
-        mMeetingList = mApiService.getMeetings();
-        mMeetingListFiltered = new ArrayList<>();
-        mMeetingListFiltered.addAll(mMeetingList);
         mFilterMinDate = Long.MIN_VALUE;
         mFilterMaxDate = Long.MAX_VALUE;
         initViews();
@@ -118,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        mMeetingsAdapter = new MeetingRecyclerViewAdapter(mMeetingListFiltered, this);
+        mMeetingsAdapter = new MeetingRecyclerViewAdapter(mApiService.getMeetingsFiltered(), this);
         mRecyclerView.setAdapter(mMeetingsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAddFab.setOnClickListener(view -> {
@@ -173,8 +168,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         mEndDate.getEditText().setText("");
         mStartDate.getEditText().setText("");
         mRoomACTV.setText("");
-        mMeetingListFiltered.clear();
-        mMeetingListFiltered.addAll(mMeetingList);
+        mApiService.resetMeetingsFiltered();
         initViews();
         super.onRestart();
     }
@@ -185,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
         alertDialogBuilder.setMessage(R.string.dialog_delete_meeting_message);
         alertDialogBuilder.setPositiveButton(R.string.dialog_button_yes, (dialog, which) -> {
             mApiService.deleteMeeting(meeting);
-            mMeetingListFiltered.remove(meeting);
+            mApiService.deleteMeetingsFiltered(meeting);
             if (mIsTablet && meeting == DetailMeetingFragment.sMeeting) {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.remove(getSupportFragmentManager().findFragmentById(R.id.activity_main_fl_detail)).commit();
@@ -209,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
             if (mFilterIsOpen) closeFilter();
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.activity_main_fl_detail, DetailMeetingFragment.newInstance(mMeetingListFiltered.get(position))).commit();
+        ft.replace(R.id.activity_main_fl_detail, DetailMeetingFragment.newInstance(mApiService.getMeetingsFiltered().get(position))).commit();
     }
 
     private void closeFragment() {
@@ -259,12 +253,12 @@ public class MainActivity extends AppCompatActivity implements MeetingRecyclerVi
     }
 
     public void filter() {
-        mMeetingListFiltered.clear();
-        for (Meeting meeting : mMeetingList) {
+        mApiService.resetMeetingsFiltered();
+        for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getStartTime() > mFilterMinDate
                     && meeting.getStartTime() < mFilterMaxDate
                     && ((mFilterRoom == null || mFilterRoom.length() == 0) || (meeting.getRoom().toLowerCase().contains(mFilterRoom.toLowerCase().trim()))))
-                mMeetingListFiltered.add(meeting);
+            mApiService.addMeetingsFiltered(meeting);
         }
         mMeetingsAdapter.notifyDataSetChanged();
     }
